@@ -205,16 +205,17 @@ I need you to create comprehensive quickstart documentation that combines techni
 4. **Scalable Foundation** - show patterns that work for real applications, not just demos
 
 ### Documentation Structure
-Create a complete quickstart guide with:
+**IMPORTANT: Follow the exact structure and organization patterns identified in the Style Extraction analysis above.**
 
-1. **Introduction** - brief overview of what developers will accomplish
-2. **Prerequisites** - system requirements, accounts needed, prior knowledge
-3. **Installation** - step-by-step setup for {{ target_framework }} environment
-4. **Configuration** - authentication, environment setup, initial configuration
-5. **First Implementation** - working example with complete code
-6. **Key Concepts** - essential SDK concepts developers need to understand
-7. **Next Steps** - resources for expanding beyond the quickstart
-8. **Troubleshooting** - common issues and solutions
+Use the structure pattern from the reference documentation analysis to organize your quickstart. This may vary significantly depending on the type of application (SPA, webapp, backend API, native mobile, etc.) and the specific patterns used by the reference documentation.
+
+Ensure your quickstart matches:
+- **Section flow and hierarchy** from the extracted style patterns
+- **Content organization approach** identified in the reference analysis  
+- **Heading styles and terminology** used in the reference documentation
+- **Step progression and grouping** that matches the established patterns
+
+Do NOT use a generic structure - adapt to the specific patterns found in the reference documentation.
 
 ## Output Format
 Generate the quickstart documentation in Markdown format, ready for publication. Include:

@@ -92,8 +92,7 @@ def init():
     sdk_repository = click.prompt(
         "🔗 SDK repository or documentation link? (optional)",
         default=session.session_data.get("sdk_repository", ""),
-        show_default=bool(session.session_data.get("sdk_repository")),
-        required=False
+        show_default=bool(session.session_data.get("sdk_repository"))
     )
     
     # Get reference quickstarts
@@ -103,7 +102,7 @@ def init():
     
     reference_links = []
     while True:
-        link = click.prompt("  Reference", default="", show_default=False, required=False)
+        link = click.prompt("  Reference", default="", show_default=False)
         if not link.strip():
             break
         reference_links.append(link.strip())
@@ -210,7 +209,7 @@ def reset():
 
 
 def _display_prompts_console(prompts: Dict[str, str]):
-    """Display prompts in the console with rich formatting."""
+    """Display prompts in the console with clean, copyable formatting."""
     
     stages = [
         ('sdk_analysis', "🔍 Stage 1: SDK Deep Analysis", 
@@ -224,11 +223,18 @@ def _display_prompts_console(prompts: Dict[str, str]):
     for key, title, instruction in stages:
         console.print(f"\n{title}")
         console.print(f"[dim]{instruction}[/dim]")
-        console.print(Panel(
-            Markdown(prompts[key]),
-            title=f"📋 Copy This Prompt",
-            border_style="blue"
-        ))
+        
+        # Display clean copyable text with clear boundaries
+        console.print("\n" + "="*80)
+        console.print("📋 [bold]COPY FROM HERE[/bold] ⬇️")
+        console.print("="*80)
+        
+        # Print the raw prompt text without Rich formatting
+        print(prompts[key])  # Use plain print() to avoid Rich formatting
+        
+        console.print("="*80)
+        console.print("📋 [bold]COPY TO HERE[/bold] ⬆️")
+        console.print("="*80)
         
         if key != 'synthesis':  # Don't pause after last prompt
             console.print("\n[yellow]⏸️  Paste this prompt into your LLM, then press Enter to continue...[/yellow]")
