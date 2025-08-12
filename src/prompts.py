@@ -82,6 +82,30 @@ Please provide a comprehensive analysis of this SDK covering the following areas
 - Are there version compatibility considerations?
 - What minimum {{ sdk_language }} version is supported?
 
+### 8. Prerequisites & Development Environment
+- What system-level prerequisites are required (runtime, SDK, package manager, etc.)?
+- Are there specific development tools or CLI installations needed?
+- What are the exact version requirements for critical dependencies?
+- Are there common environment setup issues that block developers?
+
+### 9. Language Ecosystem & Type System Considerations
+- How does this SDK integrate with the {{ sdk_language }} type system (if applicable)?
+- Are there language-specific patterns, interfaces, or contracts to understand?
+- What language-specific configuration or imports are required?
+- Are there compilation or runtime compatibility considerations?
+
+### 10. Current vs Deprecated Approaches
+- What are the current, recommended installation and setup methods?
+- Are there deprecated commands, patterns, or approaches to avoid?
+- How does this SDK work with modern {{ sdk_language }} tooling and conventions?
+- What {{ target_framework }}-specific integration patterns are current?
+
+### 11. External Service & Configuration Requirements
+- Does this SDK require external service setup (APIs, dashboards, accounts)?
+- What configuration values need to be obtained and from where?
+- What do typical configuration values look like (format and examples)?
+- What are the most common configuration errors and how to prevent them?
+
 ## Output Format
 Please structure your analysis clearly with headers and bullet points. Focus on information that would be valuable for creating developer quickstart documentation. Be comprehensive but practical - emphasize what developers need to know to get started successfully.
 
@@ -141,6 +165,30 @@ Please analyze these reference quickstart documents:
 - **Headers & Sections**: What heading hierarchy and section structure is used?
 - **Callouts & Highlights**: Are there special formatting elements (tips, warnings, notes)?
 - **Lists & Bullets**: How is information broken down into digestible pieces?
+
+### 6. Prerequisites & Environment Setup Coverage
+- **Prerequisites Approach**: How thoroughly does the documentation cover system requirements and prerequisites?
+- **Environment Setup Detail**: What level of detail is provided for development environment configuration?
+- **Dependency Management**: How are package managers, build tools, and dependency installations handled?
+- **Version Specification**: How are version requirements and compatibility issues communicated?
+
+### 7. Configuration & External Service Setup Patterns
+- **Service Configuration**: How does the documentation guide users through external service setup?
+- **Credential & API Key Management**: How are configuration values and authentication setup explained?
+- **Step-by-Step Guidance**: What level of detail is provided for admin dashboards or external setup?
+- **Configuration Examples**: How are example values and configuration formats presented?
+
+### 8. Technology Evolution & Current Practices
+- **Command Currency**: How does the documentation ensure commands and approaches are current?
+- **Framework Compatibility**: How are framework-specific patterns and file structures addressed?
+- **Deprecated vs Current**: How does the documentation handle evolution of tools and practices?
+- **Ecosystem Integration**: How well does the documentation integrate with current ecosystem patterns?
+
+### 9. Error Prevention & Troubleshooting Approach
+- **Problem Anticipation**: How comprehensively does the documentation address potential issues?
+- **Troubleshooting Organization**: How are common problems and solutions structured?
+- **Error Context**: How much background is provided to help developers understand issues?
+- **Validation & Checkpoints**: How does the documentation help developers verify successful setup?
 
 ## Output Format
 Please provide a detailed style guide based on your analysis, formatted as:
@@ -233,6 +281,42 @@ The final quickstart should:
 - ✅ Provide working, copy-paste code examples
 - ✅ Address common developer concerns and potential issues
 - ✅ Maintain consistency with {{ sdk_name }} best practices
+
+## Critical Quality Assurance Requirements
+
+Before finalizing the quickstart, ensure it meets these mandatory standards:
+
+### Prerequisites & Environment Setup (MANDATORY)
+- ✅ **Complete prerequisites listed** - All system requirements, runtimes, tools, and versions specified
+- ✅ **Development environment setup** - Clear instructions for setting up the development environment
+- ✅ **Package/dependency management** - Correct installation methods for the target ecosystem
+- ✅ **Version compatibility** - Minimum and recommended versions clearly specified
+
+### Language & Framework Compatibility (MANDATORY)
+- ✅ **Type system compatibility** - Code examples work with the language's type system (if applicable)
+- ✅ **Language conventions followed** - Code follows established patterns and idioms for {{ sdk_language }}
+- ✅ **Framework integration verified** - Examples work with current {{ target_framework }} patterns and structure
+- ✅ **Import/dependency statements complete** - All necessary imports, using statements, or includes provided
+
+### Current Practices & Command Accuracy (MANDATORY)
+- ✅ **Current commands used** - No deprecated installation, build, or setup commands
+- ✅ **Modern tooling integration** - Works with current package managers, build tools, and CLI utilities
+- ✅ **Framework structure accuracy** - File paths and project structure match current {{ target_framework }} conventions
+- ✅ **Ecosystem best practices** - Follows current recommended approaches for the technology stack
+
+### Configuration & External Service Setup (MANDATORY)
+- ✅ **External service configuration complete** - Step-by-step setup for any required external services
+- ✅ **Configuration value acquisition** - Clear guidance on obtaining API keys, domains, credentials, etc.
+- ✅ **Configuration examples provided** - Sample values showing expected format and structure
+- ✅ **Common configuration errors prevented** - Proactive guidance on typical setup mistakes
+
+### Error Prevention & Developer Success (HIGH PRIORITY)
+- ✅ **Common issues anticipated** - Troubleshooting covers likely problems developers will encounter
+- ✅ **Validation checkpoints included** - Clear steps to verify successful setup at each stage
+- ✅ **Error context provided** - Explanations help developers understand and resolve issues
+- ✅ **Alternative approaches offered** - Backup methods for common failure points
+
+**QUALITY GATE**: The quickstart should be rejected if it fails any MANDATORY requirement above.
 
 ---
 **Final Goal**: Create quickstart documentation that {{ target_framework }} developers can follow to successfully integrate {{ sdk_name }} in under 30 minutes, following established documentation patterns for optimal developer experience."""
