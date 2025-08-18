@@ -49,14 +49,24 @@ For generating quickstarts for pure SDK usage (no framework integration):
 ```bash
 $ quickstart-prompt-generator init
 
-🔧 Which SDK/library are you using?: stripe-python
 📝 What is the SDK language?: Python
-🔗 SDK repository or documentation link? (optional): https://github.com/stripe/stripe-python
+🔗 SDK repository or documentation link? (optional): https://github.com/auth0/auth0-api-python
 
-📚 Reference Quickstart Documents:
-  Reference: https://stripe.com/docs/api/python
-  Reference: https://docs.python-requests.org/en/master/user/quickstart/
+📚 Reference Quickstart Documents
+Enter reference quickstart links or file paths (one per line).
+Press Enter on empty line to finish:
+  Reference: https://vercel.com/docs/functions/runtimes/python
+  Reference: https://auth0.com/docs/quickstart/backend/python/interactive
   Reference: 
+
+📝 Documentation Style Preference
+You provided 2 reference documents:
+  1. https://vercel.com/docs/functions/runtimes/python
+  2. https://auth0.com/docs/quickstart/backend/python/interactive
+
+Which documentation style would you like to primarily emulate?
+Enter the number (1, 2, etc.) or 'blend' to combine all styles:
+Style preference: 2
 
 🎯 Which framework/platform is your target? (or 'standalone' for pure SDK usage): standalone
 
