@@ -26,7 +26,8 @@ class SessionManager:
             "sdk_language": "",
             "sdk_repository": "",
             "reference_links": [],
-            "target_framework": ""
+            "target_framework": "",
+            "style_preference": ""
         }
         self.load_session()
     
@@ -111,8 +112,33 @@ def init():
     if not reference_links and session.session_data.get("reference_links"):
         reference_links = session.session_data["reference_links"]
     
+    # Ask about style preference if multiple references provided
+    style_preference = ""
+    if len(reference_links) > 1:
+        console.print(f"\n📝 [bold]Documentation Style Preference[/bold]")
+        console.print(f"You provided {len(reference_links)} reference documents:")
+        for i, link in enumerate(reference_links, 1):
+            console.print(f"  {i}. {link}")
+        console.print("\nWhich documentation style would you like to primarily emulate?")
+        console.print("Enter the number (1, 2, etc.) or 'blend' to combine all styles:")
+        
+        style_choice = click.prompt(
+            "Style preference",
+            default=session.session_data.get("style_preference", "blend"),
+            show_default=bool(session.session_data.get("style_preference"))
+        )
+        
+        if style_choice.isdigit() and 1 <= int(style_choice) <= len(reference_links):
+            style_preference = reference_links[int(style_choice) - 1]
+        else:
+            style_preference = "blend"
+    elif len(reference_links) == 1:
+        style_preference = reference_links[0]
+    else:
+        style_preference = "none"
+    
     target_framework = click.prompt(
-        "\n🎯 Which framework/platform is your target?",
+        "\n🎯 Which framework/platform is your target? (or 'standalone' for pure SDK usage)",
         default=session.session_data.get("target_framework", ""),
         show_default=bool(session.session_data.get("target_framework"))
     )
@@ -123,7 +149,8 @@ def init():
         sdk_language=sdk_language,
         sdk_repository=sdk_repository,
         reference_links=reference_links,
-        target_framework=target_framework
+        target_framework=target_framework,
+        style_preference=style_preference
     )
     
     console.print(Panel.fit(

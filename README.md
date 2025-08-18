@@ -83,10 +83,12 @@ Options:
 - **Input**: Results from Stages 1 & 2
 - **Output**: Complete, framework-specific quickstart documentation
 
-## 💡 Example Workflow
+## 💡 Example Workflows
+
+### Framework Integration Example
 
 ```bash
-# Start a new session
+# Start a new session for framework integration
 $ quickstart-prompt-generator init
 
 Which SDK/library are you using?
@@ -102,15 +104,41 @@ Reference quickstart links (one per line, empty to finish):
   Reference: https://auth0.com/docs/quickstart/backend/java
   Reference: 
 
-Which framework/platform is your target?
+Which framework/platform is your target? (or 'standalone' for pure SDK usage)
 > Spring Boot
 
 # Generate prompts
 $ quickstart-prompt-generator generate
-
-# Or save to file
-$ quickstart-prompt-generator generate --format markdown --output my-prompts.md
 ```
+
+### Standalone SDK Usage Example
+
+```bash
+# Start a new session for pure SDK usage
+$ quickstart-prompt-generator init
+
+Which SDK/library are you using?
+> stripe-python
+
+What is the SDK language?
+> Python
+
+SDK repository or documentation link? (optional)
+> https://github.com/stripe/stripe-python
+
+Reference quickstart links (one per line, empty to finish):
+  Reference: https://stripe.com/docs/api/python
+  Reference: https://docs.python-requests.org/en/master/user/quickstart/
+  Reference: 
+
+Which framework/platform is your target? (or 'standalone' for pure SDK usage)
+> standalone
+
+# Generate prompts focused on direct SDK usage
+$ quickstart-prompt-generator generate --format markdown --output stripe-standalone-prompts.md
+```
+
+For more detailed examples including standalone mode, style preferences, and advanced workflows, see **[docs/EXAMPLES.md](docs/EXAMPLES.md)**.
 
 ## 📁 Project Structure
 

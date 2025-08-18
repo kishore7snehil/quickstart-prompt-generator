@@ -70,7 +70,13 @@ Please provide a comprehensive analysis of this SDK covering the following areas
 ### 5. Common Integration Patterns
 - How does this SDK typically integrate into applications?
 - What are the most common initialization and setup patterns?
-- Are there framework-specific considerations for {{ sdk_language }}?
+{% if target_framework and target_framework.lower() != 'standalone' -%}
+- Are there framework-specific considerations for {{ target_framework }}?
+- How does this SDK work within {{ target_framework }} applications?
+{% else -%}
+- What are the core standalone usage patterns for {{ sdk_language }}?
+- How do developers typically structure projects using this SDK directly?
+{% endif %}
 
 ### 6. Error Handling & Best Practices
 - What are common error scenarios developers encounter?
@@ -127,10 +133,28 @@ Please analyze the following reference quickstart documentation and extract:
 
 ## Reference Documentation
 {% if reference_links -%}
+{% if style_preference == 'blend' -%}
+Please analyze these reference quickstart documents and blend the best aspects of each:
+{% for link in reference_links %}
+- {{ link }}
+{% endfor %}
+
+**Style Instruction**: Extract and combine the best elements from all these sources to create a hybrid approach that leverages the strengths of each documentation style.
+{% elif style_preference != 'none' and style_preference in reference_links -%}
+Please analyze these reference quickstart documents, with **primary focus** on emulating the style of: **{{ style_preference }}**
+
+All reference documents:
+{% for link in reference_links %}
+- {{ link }}{% if link == style_preference %} ← **PRIMARY STYLE TO EMULATE**{% endif %}
+{% endfor %}
+
+**Style Instruction**: Focus primarily on matching the writing style, tone, structure, and approach of the marked primary reference. Use other references for additional context but prioritize the primary style.
+{% else -%}
 Please analyze these reference quickstart documents:
 {% for link in reference_links %}
 - {{ link }}
 {% endfor %}
+{% endif %}
 {% else -%}
 *No reference links provided - please analyze any quickstart documentation I provide below this prompt*
 {% endif %}
@@ -213,7 +237,11 @@ Please provide a detailed style guide based on your analysis, formatted as:
 ```
 
 ## Context for Application
+{% if target_framework and target_framework.lower() != 'standalone' -%}
 This style analysis will be used to create quickstart documentation for {{ sdk_name }} ({{ sdk_language }}) targeting {{ target_framework }} developers. The goal is to maintain consistency with established patterns while creating effective developer onboarding experiences.
+{% else -%}
+This style analysis will be used to create standalone quickstart documentation for {{ sdk_name }} ({{ sdk_language }}) for pure SDK usage. The goal is to maintain consistency with established patterns while creating effective developer onboarding experiences for direct SDK integration.
+{% endif %}
 
 ---
 **Next Steps**: I'll combine this style analysis with SDK technical details to generate a quickstart guide that matches the established documentation patterns."""
@@ -222,12 +250,21 @@ This style analysis will be used to create quickstart documentation for {{ sdk_n
         """Template for synthesis prompt."""
         return """# Quickstart Documentation Generation Request
 
+{% if target_framework and target_framework.lower() != 'standalone' -%}
 I need you to create comprehensive quickstart documentation that combines technical SDK analysis with established documentation style patterns. This will help {{ target_framework }} developers quickly get started with {{ sdk_name }}.
 
 ## Context & Goals
 - **SDK**: {{ sdk_name }} ({{ sdk_language }})
 - **Target Framework**: {{ target_framework }}
 - **Goal**: Create developer-friendly quickstart documentation that follows proven patterns
+{% else -%}
+I need you to create comprehensive quickstart documentation that combines technical SDK analysis with established documentation style patterns. This will help developers quickly get started with {{ sdk_name }} for direct, standalone usage.
+
+## Context & Goals
+- **SDK**: {{ sdk_name }} ({{ sdk_language }})
+- **Target**: Standalone SDK usage (pure {{ sdk_language }})
+- **Goal**: Create developer-friendly quickstart documentation for direct SDK integration
+{% endif %}
 
 ## Inputs to Synthesize
 
@@ -275,7 +312,11 @@ Generate the quickstart documentation in Markdown format, ready for publication.
 
 ## Quality Criteria
 The final quickstart should:
+{% if target_framework and target_framework.lower() != 'standalone' -%}
 - ✅ Allow a {{ target_framework }} developer to go from zero to working implementation
+{% else -%}
+- ✅ Allow a {{ sdk_language }} developer to go from zero to working SDK implementation
+{% endif -%}
 - ✅ Match the style and approach of the reference documentation
 - ✅ Include all necessary setup and configuration steps
 - ✅ Provide working, copy-paste code examples
@@ -295,13 +336,21 @@ Before finalizing the quickstart, ensure it meets these mandatory standards:
 ### Language & Framework Compatibility (MANDATORY)
 - ✅ **Type system compatibility** - Code examples work with the language's type system (if applicable)
 - ✅ **Language conventions followed** - Code follows established patterns and idioms for {{ sdk_language }}
+{% if target_framework and target_framework.lower() != 'standalone' -%}
 - ✅ **Framework integration verified** - Examples work with current {{ target_framework }} patterns and structure
+{% else -%}
+- ✅ **Standalone integration verified** - Examples work with standard {{ sdk_language }} project structure
+{% endif -%}
 - ✅ **Import/dependency statements complete** - All necessary imports, using statements, or includes provided
 
 ### Current Practices & Command Accuracy (MANDATORY)
 - ✅ **Current commands used** - No deprecated installation, build, or setup commands
 - ✅ **Modern tooling integration** - Works with current package managers, build tools, and CLI utilities
+{% if target_framework and target_framework.lower() != 'standalone' -%}
 - ✅ **Framework structure accuracy** - File paths and project structure match current {{ target_framework }} conventions
+{% else -%}
+- ✅ **Project structure accuracy** - File paths and project structure match current {{ sdk_language }} conventions
+{% endif %}
 - ✅ **Ecosystem best practices** - Follows current recommended approaches for the technology stack
 
 ### Configuration & External Service Setup (MANDATORY)

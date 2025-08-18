@@ -1,218 +1,189 @@
-# Examples & Sample Generated Prompts
+# Examples & Usage Guide
 
-This document provides examples of the Quickstart Prompt Generator in action, showing the complete workflow and sample outputs for different SDK scenarios.
+This document provides comprehensive examples of the Quickstart Prompt Generator in action, including real generated outputs and advanced features.
 
-## Example 1: Auth0 Java SDK for Spring Boot
+## Complete Example: Auth0 SPA JS for Svelte
+
+This example shows the complete workflow using real generated prompts from the `generated_prompts/` folder.
 
 ### Session Setup
 ```bash
 $ quickstart-prompt-generator init
 
-🚀 Welcome
-┌─ Quickstart Prompt Generator ─────────────────────────────┐
-│ Initialize your SDK quickstart prompt generation session │
-└───────────────────────────────────────────────────────────┘
-
-🔧 Which SDK/library are you using?: auth0-java
-📝 What is the SDK language?: Java
-🔗 SDK repository or documentation link? (optional): https://github.com/auth0/auth0-java
+🔧 Which SDK/library are you using?: @auth0/auth0-spa-js
+📝 What is the SDK language?: JavaScript  
+🔗 SDK repository or documentation link? (optional): https://github.com/auth0/auth0-spa-js
 
 📚 Reference Quickstart Documents
-Enter reference quickstart links or file paths (one per line).
-Press Enter on empty line to finish:
-  Reference: https://auth0.com/docs/quickstart/backend/java
+Enter reference quickstart links or file paths (one per line):
+  Reference: https://auth0.com/docs/quickstart/spa/vanillajs
   Reference: 
 
-🎯 Which framework/platform is your target?: Spring Boot
+🎯 Which framework/platform is your target?: Svelte
+
+$ quickstart-prompt-generator generate
 ```
 
 ### Generated Prompts
 
-#### Stage 1: SDK Deep Analysis Prompt
+The three-stage prompts generated for this session are available in the `generated_prompts/` folder:
 
-```markdown
-# SDK Deep Analysis Request
+- **Stage 1**: [`generated_prompts/analysis/auth0-spa-js-analysis.md`](../generated_prompts/analysis/auth0-spa-js-analysis.md) - SDK Deep Analysis Prompt
+- **Stage 2**: [`generated_prompts/style/auth0-spa-js-style-extraction.md`](../generated_prompts/style/auth0-spa-js-style-extraction.md) - Reference Style Extraction Prompt  
+- **Stage 3**: [`generated_prompts/synthesis/auth0-spa-js-svelte-synthesis.md`](../generated_prompts/synthesis/auth0-spa-js-svelte-synthesis.md) - Quickstart Synthesis Prompt
 
-I'm working on creating quickstart documentation for developers and need your help analyzing an SDK/library to understand its core capabilities, structure, and developer workflow.
+### Real Results
 
-## SDK Information
-- **Name**: auth0-java
-- **Language**: Java
-- **Repository/Documentation**: https://github.com/auth0/auth0-java
+The `generated_prompts/results/` folder contains actual LLM outputs from using these prompts:
 
-## Analysis Request
+- [`auth0-spa-js-analysis-results.md`](../generated_prompts/results/auth0-spa-js-analysis-results.md) - Complete SDK analysis
+- [`auth0-spa-js-style-extraction-results.md`](../generated_prompts/results/auth0-spa-js-style-extraction-results.md) - Style guide
+- [`auth0-spa-js-svelte-quickstart.md`](../generated_prompts/results/auth0-spa-js-svelte-quickstart.md) - Final Svelte quickstart
 
-Please provide a comprehensive analysis of this SDK covering the following areas:
+## Advanced Features & Examples
 
-### 1. Core Purpose & Value Proposition
-- What is the primary purpose of this SDK?
-- What specific problems does it solve for developers?
-- What are the key value propositions for developers using this SDK?
+### Standalone SDK Usage
 
-### 2. Architecture & Core Components
-- What are the main modules, classes, or components?
-- How do these components interact with each other?
-- What is the typical developer workflow when using this SDK?
+For generating quickstarts for pure SDK usage (no framework integration):
 
-[... continues with detailed analysis framework ...]
-```
-
-#### Stage 2: Reference Style Extraction Prompt
-
-```markdown
-# Reference Documentation Style Analysis
-
-I need to analyze existing quickstart documentation to extract the writing style, structure, and approach that works well for developers.
-
-## Reference Documentation
-Please analyze these reference quickstart documents:
-- https://auth0.com/docs/quickstart/backend/java
-
-## Analysis Framework
-
-### 1. Writing Style & Tone Analysis
-- **Voice & Perspective**: Is it written in first person, second person, or instructional tone?
-- **Technical Level**: How technical vs. beginner-friendly is the language?
-
-[... continues with comprehensive style analysis framework ...]
-```
-
-#### Stage 3: Synthesis Prompt
-
-```markdown
-# Quickstart Documentation Generation Request
-
-I need you to create comprehensive quickstart documentation that combines technical SDK analysis with established documentation style patterns. This will help Spring Boot developers quickly get started with auth0-java.
-
-## Context & Goals
-- **SDK**: auth0-java (Java)
-- **Target Framework**: Spring Boot
-- **Goal**: Create developer-friendly quickstart documentation that follows proven patterns
-
-[... continues with synthesis requirements ...]
-```
-
-## Example 2: React SDK for Next.js
-
-### Session Setup
 ```bash
 $ quickstart-prompt-generator init
 
-🔧 Which SDK/library are you using?: @auth0/nextjs-auth0
-📝 What is the SDK language?: JavaScript
-🔗 SDK repository or documentation link? (optional): https://github.com/auth0/nextjs-auth0
+🔧 Which SDK/library are you using?: stripe-python
+📝 What is the SDK language?: Python
+🔗 SDK repository or documentation link? (optional): https://github.com/stripe/stripe-python
 
-📚 Reference Quickstart Documents
-  Reference: https://auth0.com/docs/quickstart/webapp/nextjs
-  Reference: https://nextjs.org/docs/getting-started
+📚 Reference Quickstart Documents:
+  Reference: https://stripe.com/docs/api/python
+  Reference: https://docs.python-requests.org/en/master/user/quickstart/
   Reference: 
 
-🎯 Which framework/platform is your target?: Next.js 14
+🎯 Which framework/platform is your target? (or 'standalone' for pure SDK usage): standalone
+
+$ quickstart-prompt-generator generate --format markdown --output stripe-standalone-prompts.md
 ```
 
-### Key Differences in Generated Prompts
+### Multiple Reference Style Selection
 
-The generated prompts automatically adapt to the different context:
+When you provide multiple reference documents, you can choose which style to prioritize:
 
-- **Language-specific considerations**: JavaScript/TypeScript patterns vs Java patterns
-- **Framework focus**: Next.js routing and API routes vs Spring Boot controllers
-- **Ecosystem integration**: npm packages vs Maven dependencies
-- **Development workflow**: Hot reloading vs build cycles
+#### Example 1: Selecting a Primary Style
 
-## Example 3: Python SDK for Django
-
-### Session Commands
 ```bash
-# Initialize session
-quickstart-prompt-generator init
+$ quickstart-prompt-generator init
 
-# Generate prompts to console
-quickstart-prompt-generator generate
+🔧 Which SDK/library are you using?: openai
+📝 What is the SDK language?: Python
 
-# Generate prompts to Markdown file
-quickstart-prompt-generator generate --format markdown --output django-auth-prompts.md
+📚 Reference Quickstart Documents:
+  Reference: https://platform.openai.com/docs/quickstart
+  Reference: https://docs.anthropic.com/claude/docs/quickstart
+  Reference: https://auth0.com/docs/quickstart/web/react
+  Reference: 
 
-# Check current session
-quickstart-prompt-generator status
+📝 Documentation Style Preference
+You provided 3 reference documents:
+  1. https://platform.openai.com/docs/quickstart
+  2. https://docs.anthropic.com/claude/docs/quickstart  
+  3. https://auth0.com/docs/quickstart/web/react
 
-# Reset and start over
-quickstart-prompt-generator reset
+Which documentation style would you like to primarily emulate?
+Enter the number (1, 2, etc.) or 'blend' to combine all styles:
+> 2
 ```
 
-### Sample Output File Structure
-
-When using `--format markdown --output`, you get:
-
+**Result**: Stage 2 prompt will contain:
 ```markdown
-# Quickstart Prompt Generator Output
+Please analyze these reference quickstart documents, with **primary focus** on emulating the style of: **https://docs.anthropic.com/claude/docs/quickstart**
 
-## Stage 1: SDK Deep Analysis Prompt
+All reference documents:
+- https://platform.openai.com/docs/quickstart
+- https://docs.anthropic.com/claude/docs/quickstart ← **PRIMARY STYLE TO EMULATE**
+- https://auth0.com/docs/quickstart/web/react
 
-**Instructions:** Copy this prompt to your LLM to analyze the SDK capabilities and structure.
-
-```
-[Generated SDK analysis prompt]
-```
-
----
-
-## Stage 2: Reference Style Extraction Prompt
-
-**Instructions:** Copy this prompt + your reference documents to extract writing style and structure.
-
-```
-[Generated style extraction prompt]
+**Style Instruction**: Focus primarily on matching the writing style, tone, structure, and approach of the marked primary reference.
 ```
 
----
+#### Example 2: Blending All Styles
 
-## Stage 3: Quickstart Synthesis Prompt
-
-**Instructions:** Copy this prompt + outputs from stages 1 & 2 to generate your final quickstart.
-
-```
-[Generated synthesis prompt]
-```
-```
-
-## Workflow Tips
-
-### Best Practices
-
-1. **Reference Selection**: Choose 2-3 high-quality reference quickstarts that match your target audience and complexity level
-2. **Framework Specificity**: Be specific about framework versions (e.g., "Spring Boot 3.x" vs just "Spring Boot")
-3. **Iterative Refinement**: Use the session persistence to refine SDK details and regenerate prompts
-4. **LLM Follow-up**: Don't hesitate to ask follow-up questions to your LLM based on the generated outputs
-
-### Common Session Patterns
-
-#### Multi-Framework Comparison
 ```bash
-# Generate for React
-quickstart-prompt-generator init
-# ... set up for React/Next.js
-quickstart-prompt-generator generate -f markdown -o react-prompts.md
-
-# Reset and generate for Vue
-quickstart-prompt-generator reset
-quickstart-prompt-generator init  
-# ... set up for Vue/Nuxt
-quickstart-prompt-generator generate -f markdown -o vue-prompts.md
+# Same setup as above, but choosing "blend"
+> blend
 ```
 
-#### Team Workflow
+**Result**: Stage 2 prompt will contain:
+```markdown
+Please analyze these reference quickstart documents and blend the best aspects of each:
+- https://platform.openai.com/docs/quickstart
+- https://docs.anthropic.com/claude/docs/quickstart
+- https://auth0.com/docs/quickstart/web/react
+
+**Style Instruction**: Extract and combine the best elements from all these sources to create a hybrid approach.
+```
+
+#### Example 3: Same-Source References
+
+```bash
+📚 Reference Quickstart Documents:
+  Reference: https://auth0.com/docs/quickstart/backend/java
+  Reference: https://auth0.com/docs/quickstart/web/react
+  Reference: https://auth0.com/docs/quickstart/spa/vanilla
+  Reference: 
+
+📝 Documentation Style Preference
+You provided 3 reference documents:
+  1. https://auth0.com/docs/quickstart/backend/java
+  2. https://auth0.com/docs/quickstart/web/react
+  3. https://auth0.com/docs/quickstart/spa/vanilla
+
+> blend
+```
+
+**Recommended**: When all references are from the same source, choose `blend` to leverage different approaches within the same documentation ecosystem.
+
+### Style Selection Decision Guide
+
+| Input Choice | Generated Instruction to LLM | Best Use Case |
+|--------------|----------------------------|---------------|
+| **Number (e.g., "2")** | Focus primarily on the selected reference's style | Match a specific company's documentation style exactly |
+| **"blend"** | Combine the best elements from all references | Leverage strengths from multiple styles OR all references from same source |
+| **Single reference** | Standard analysis of the one provided reference | One excellent reference to follow |
+| **No references** | Generic style analysis prompt | Provide documentation directly in LLM chat |
+
+## 💡 Pro Tips
+
+### Same-Source References
+When providing multiple references from the same source (e.g., all Auth0 docs), always choose **"blend"**:
+- Extract consistent brand voice and style patterns
+- Learn from different approaches within the same ecosystem  
+- Combine structural variations (backend vs web vs SPA patterns)
+- Maintain consistent terminology and tone
+
+### Team Workflow
 ```bash
 # Team lead creates base session
-quickstart-prompt-generator init
-# ... configure SDK details
-quickstart-prompt-generator status > team-session.txt
+$ quickstart-prompt-generator init
+$ quickstart-prompt-generator status > team-session.txt
 
-# Team members can restore session data
-# (Copy .qpg_session.json to share session state)
-quickstart-prompt-generator generate
+# Team members can restore session data by copying .qpg_session.json
+$ quickstart-prompt-generator generate
 ```
 
-## Real-World Results
+### Multi-Framework Comparison
+```bash
+# Generate for React
+$ quickstart-prompt-generator init
+# ... set up for React/Next.js
+$ quickstart-prompt-generator generate -f markdown -o react-prompts.md
+
+# Reset and generate for Vue
+$ quickstart-prompt-generator reset
+$ quickstart-prompt-generator init  
+# ... set up for Vue/Nuxt
+$ quickstart-prompt-generator generate -f markdown -o vue-prompts.md
+```
+
+## Real-World Impact
 
 ### Before: Manual Documentation Process
 - ⏱️ **Time**: 4-6 hours per quickstart
