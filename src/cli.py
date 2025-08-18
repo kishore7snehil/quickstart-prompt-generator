@@ -69,95 +69,62 @@ def cli():
 @cli.command()
 def init():
     """Initialize a new prompt generation session."""
+    session = SessionManager()
+    
+    # Check for existing session
+    if os.path.exists(SESSION_FILE) and any(session.session_data.values()):
+        console.print(Panel.fit(
+            "[yellow]⚠️  Existing session detected![/yellow]\n\n"
+            f"SDK: {session.session_data.get('sdk_name', 'Not set')}\n"
+            f"Language: {session.session_data.get('sdk_language', 'Not set')}\n"
+            f"Target: {session.session_data.get('target_framework', 'Not set')}\n\n"
+            "What would you like to do?",
+            title="🔄 Session Management"
+        ))
+        
+        choice = click.prompt(
+            "Choose an option",
+            type=click.Choice(['continue', 'reset', 'cancel']),
+            show_choices=True
+        )
+        
+        if choice == 'cancel':
+            console.print("❌ [yellow]Initialization cancelled.[/yellow]")
+            return
+        elif choice == 'reset':
+            session.session_data = {
+                "sdk_name": "",
+                "sdk_language": "",
+                "sdk_repository": "",
+                "reference_links": [],
+                "target_framework": "",
+                "style_preference": ""
+            }
+            console.print("✅ [green]Session reset. Starting fresh initialization.[/green]\n")
+        else:  # continue
+            console.print("✅ [green]Continuing with existing session. You can modify any values.[/green]\n")
+    
     console.print(Panel.fit(
         "[bold blue]Quickstart Prompt Generator[/bold blue]\n"
-        "Initialize your SDK quickstart prompt generation session",
+        "Initialize your SDK quickstart prompt generation session\n\n"
+        "[dim]💡 Tip: Type 'back' to return to previous question[/dim]",
         title="🚀 Welcome"
     ))
     
-    session = SessionManager()
-    
-    # Collect SDK information
-    sdk_name = click.prompt(
-        "\n🔧 Which SDK/library are you using?",
-        default=session.session_data.get("sdk_name", ""),
-        show_default=bool(session.session_data.get("sdk_name"))
-    )
-    
-    sdk_language = click.prompt(
-        "📝 What is the SDK language?",
-        default=session.session_data.get("sdk_language", ""),
-        show_default=bool(session.session_data.get("sdk_language"))
-    )
-    
-    sdk_repository = click.prompt(
-        "🔗 SDK repository or documentation link? (optional)",
-        default=session.session_data.get("sdk_repository", ""),
-        show_default=bool(session.session_data.get("sdk_repository"))
-    )
-    
-    # Get reference quickstarts
-    console.print("\n📚 [bold]Reference Quickstart Documents[/bold]")
-    console.print("Enter reference quickstart links or file paths (one per line).")
-    console.print("Press Enter on empty line to finish:")
-    
-    reference_links = []
-    while True:
-        link = click.prompt("  Reference", default="", show_default=False)
-        if not link.strip():
-            break
-        reference_links.append(link.strip())
-    
-    # If no new references provided, keep existing ones
-    if not reference_links and session.session_data.get("reference_links"):
-        reference_links = session.session_data["reference_links"]
-    
-    # Ask about style preference if multiple references provided
-    style_preference = ""
-    if len(reference_links) > 1:
-        console.print(f"\n📝 [bold]Documentation Style Preference[/bold]")
-        console.print(f"You provided {len(reference_links)} reference documents:")
-        for i, link in enumerate(reference_links, 1):
-            console.print(f"  {i}. {link}")
-        console.print("\nWhich documentation style would you like to primarily emulate?")
-        console.print("Enter the number (1, 2, etc.) or 'blend' to combine all styles:")
+    # Interactive questionnaire with back functionality
+    answers = _run_interactive_questionnaire(session)
+    if not answers:
+        console.print("❌ [red]Initialization cancelled.[/red]")
+        return
         
-        style_choice = click.prompt(
-            "Style preference",
-            default=session.session_data.get("style_preference", "blend"),
-            show_default=bool(session.session_data.get("style_preference"))
-        )
-        
-        if style_choice.isdigit() and 1 <= int(style_choice) <= len(reference_links):
-            style_preference = reference_links[int(style_choice) - 1]
-        else:
-            style_preference = "blend"
-    elif len(reference_links) == 1:
-        style_preference = reference_links[0]
-    else:
-        style_preference = "none"
-    
-    target_framework = click.prompt(
-        "\n🎯 Which framework/platform is your target? (or 'standalone' for pure SDK usage)",
-        default=session.session_data.get("target_framework", ""),
-        show_default=bool(session.session_data.get("target_framework"))
-    )
-    
     # Update session
-    session.update_data(
-        sdk_name=sdk_name,
-        sdk_language=sdk_language,
-        sdk_repository=sdk_repository,
-        reference_links=reference_links,
-        target_framework=target_framework,
-        style_preference=style_preference
-    )
+    session.update_data(**answers)
     
     console.print(Panel.fit(
         f"✅ Session initialized successfully!\n"
-        f"SDK: [bold]{sdk_name}[/bold] ({sdk_language})\n"
-        f"References: {len(reference_links)} document(s)\n"
-        f"Target: [bold]{target_framework}[/bold]\n\n"
+        f"SDK: [bold]{answers['sdk_name']}[/bold] ({answers['sdk_language']})\n"
+        f"References: {len(answers['reference_links'])} document(s)\n"
+        f"Target: [bold]{answers['target_framework']}[/bold]\n\n"
         f"Run [bold green]quickstart-prompt-generator generate[/bold green] to create your prompts!",
         title="🎉 Ready to Generate"
     ))
@@ -299,6 +266,175 @@ def _format_prompts_for_file(prompts: Dict[str, str], format_type: str) -> str:
         content += prompts['synthesis'] + "\n\n"
     
     return content
+
+
+def _run_interactive_questionnaire(session: SessionManager) -> Optional[Dict]:
+    """Run interactive questionnaire with back functionality."""
+    questions = [
+        {
+            'key': 'sdk_name',
+            'prompt': '\n🔧 Which SDK/library are you using?',
+            'required': True
+        },
+        {
+            'key': 'sdk_language', 
+            'prompt': '📝 What is the SDK language?',
+            'required': True
+        },
+        {
+            'key': 'sdk_repository',
+            'prompt': '🔗 SDK repository or documentation link? (optional)',
+            'required': False
+        },
+        {
+            'key': 'reference_links',
+            'prompt': 'reference_collection',  # Special handler
+            'required': False
+        },
+        {
+            'key': 'target_framework',
+            'prompt': '\n🎯 Which framework/platform is your target? (or \'standalone\' for pure SDK usage)',
+            'required': True
+        }
+    ]
+    
+    answers = {}
+    current_q = 0
+    
+    while current_q < len(questions):
+        question = questions[current_q]
+        key = question['key']
+        
+        if key == 'reference_links':
+            # Special handling for reference collection
+            existing_refs = session.session_data.get('reference_links', [])
+            result = _collect_references_with_back(session, existing_refs)
+            if result == 'back':
+                current_q = max(0, current_q - 1)
+                continue
+            elif result == 'cancel':
+                return None
+            else:
+                answers['reference_links'] = result['links']
+                answers['style_preference'] = result['style']
+                current_q += 1
+                continue
+        
+        # Regular question handling
+        default_val = session.session_data.get(key, '') if key in session.session_data else ''
+        show_default = bool(default_val)
+        
+        try:
+            answer = click.prompt(
+                question['prompt'],
+                default=default_val,
+                show_default=show_default
+            )
+            
+            if answer.lower() == 'back':
+                if current_q > 0:
+                    current_q -= 1
+                    continue
+                else:
+                    console.print('[yellow]Already at first question![/yellow]')
+                    continue
+            
+            if answer.lower() == 'cancel':
+                return None
+                
+            if question['required'] and not answer.strip():
+                console.print('[red]This field is required. Please provide a value.[/red]')
+                continue
+                
+            answers[key] = answer.strip()
+            current_q += 1
+            
+        except click.Abort:
+            return None
+    
+    return answers
+
+
+def _collect_references_with_back(session: SessionManager, existing_refs: List[str]) -> Dict:
+    """Collect reference links with back functionality."""
+    console.print('\n📚 [bold]Reference Quickstart Documents[/bold]')
+    
+    # Show existing references if any
+    if existing_refs:
+        console.print(f'[dim]Existing references ({len(existing_refs)}):[/dim]')
+        for i, ref in enumerate(existing_refs, 1):
+            console.print(f'[dim]  {i}. {ref}[/dim]')
+        console.print('[dim]\nAdd more references below, or press Enter on empty line to keep existing ones:[/dim]')
+    else:
+        console.print('Enter reference quickstart links or file paths (one per line).')
+    
+    console.print('Press Enter on empty line to finish, or type \'back\' to go to previous question:')
+    
+    reference_links = []
+    
+    while True:
+        try:
+            link = click.prompt('  Reference', default='', show_default=False)
+            
+            if link.lower() == 'back':
+                return 'back'
+            elif link.lower() == 'cancel':
+                return 'cancel'
+            elif not link.strip():
+                break
+            else:
+                reference_links.append(link.strip())
+        except click.Abort:
+            return 'cancel'
+    
+    # If no new references provided, keep existing ones
+    if not reference_links and existing_refs:
+        reference_links = existing_refs
+    
+    # Handle style preference
+    style_preference = _get_style_preference(reference_links, session)
+    if style_preference == 'back':
+        return 'back'
+    elif style_preference == 'cancel':
+        return 'cancel'
+    
+    return {
+        'links': reference_links,
+        'style': style_preference
+    }
+
+
+def _get_style_preference(reference_links: List[str], session: SessionManager) -> str:
+    """Get style preference for multiple references."""
+    if len(reference_links) <= 1:
+        return reference_links[0] if reference_links else 'none'
+    
+    console.print(f'\n📝 [bold]Documentation Style Preference[/bold]')
+    console.print(f'You provided {len(reference_links)} reference documents:')
+    for i, link in enumerate(reference_links, 1):
+        console.print(f'  {i}. {link}')
+    console.print('\nWhich documentation style would you like to primarily emulate?')
+    console.print('Enter the number (1, 2, etc.) or \'blend\' to combine all styles:')
+    console.print('[dim]Type \'back\' to modify reference links[/dim]')
+    
+    try:
+        style_choice = click.prompt(
+            'Style preference',
+            default=session.session_data.get('style_preference', 'blend'),
+            show_default=bool(session.session_data.get('style_preference'))
+        )
+        
+        if style_choice.lower() == 'back':
+            return 'back'
+        elif style_choice.lower() == 'cancel':
+            return 'cancel'
+        elif style_choice.isdigit() and 1 <= int(style_choice) <= len(reference_links):
+            return reference_links[int(style_choice) - 1]
+        else:
+            return 'blend'
+            
+    except click.Abort:
+        return 'cancel'
 
 
 def main():

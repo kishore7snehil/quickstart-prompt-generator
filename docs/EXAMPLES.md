@@ -49,6 +49,7 @@ For generating quickstarts for pure SDK usage (no framework integration):
 ```bash
 $ quickstart-prompt-generator init
 
+🔧 Which SDK/library are you using?: auth0-api-python
 📝 What is the SDK language?: Python
 🔗 SDK repository or documentation link? (optional): https://github.com/auth0/auth0-api-python
 

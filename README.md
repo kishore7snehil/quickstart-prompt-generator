@@ -16,7 +16,10 @@ Perfect for SDK teams working across multiple languages who need consistent, hig
 - **Language-Agnostic**: Works with any SDK/library in any programming language
 - **No Code Parsing**: Accepts SDK information as plain input - no introspection required
 - **Three-Stage Workflow**: Structured approach ensures comprehensive and consistent results
-- **Interactive CLI**: Step-by-step guidance with session persistence
+- **Standalone Mode**: Generate quickstarts for pure SDK usage without framework dependencies
+- **Multiple Style References**: Blend documentation styles from different sources or focus on specific companies
+- **Smart Session Management**: Continue existing sessions, go back during questionnaire, and handle errors gracefully
+- **Interactive CLI**: Step-by-step guidance with session persistence and undo functionality
 - **Flexible Output**: Console display, Markdown, or plain text export
 - **Extensible Templates**: Modular prompt templates for easy customization
 
@@ -75,8 +78,8 @@ Options:
 
 ### Stage 2: Reference Style Extraction  
 - **Purpose**: Extract writing style and structure from reference documentation
-- **Input**: Links to existing quickstart documentation
-- **Output**: Style guide and formatting patterns
+- **Input**: Links to existing quickstart documentation (supports multiple references with style blending)
+- **Output**: Style guide and formatting patterns with smart style preference handling
 
 ### Stage 3: Synthesis & Generation
 - **Purpose**: Combine SDK analysis with style patterns to create final quickstart
@@ -88,54 +91,95 @@ Options:
 ### Framework Integration Example
 
 ```bash
-# Start a new session for framework integration
 $ quickstart-prompt-generator init
 
 Which SDK/library are you using?
-> auth0-java
+> auth0-spa-js
 
 What is the SDK language?
-> Java
+> JavaScript
 
 SDK repository or documentation link? (optional)
-> https://github.com/auth0/auth0-java
+> https://github.com/auth0/auth0-spa-js
 
 Reference quickstart links (one per line, empty to finish):
-  Reference: https://auth0.com/docs/quickstart/backend/java
+  Reference: https://auth0.com/docs/quickstart/spa/javascript
+  Reference: https://auth0.com/docs/quickstart/spa/react
+  Reference: https://auth0.com/docs/quickstart/spa/angular
   Reference: 
 
-Which framework/platform is your target? (or 'standalone' for pure SDK usage)
-> Spring Boot
+📝 Documentation Style Preference
+You provided 3 reference documents:
+  1. https://auth0.com/docs/quickstart/spa/javascript
+  2. https://auth0.com/docs/quickstart/spa/react
+  3. https://auth0.com/docs/quickstart/spa/angular
 
-# Generate prompts
-$ quickstart-prompt-generator generate
+Which documentation style would you like to primarily emulate?
+Enter the number (1, 2, etc.) or 'blend' to combine all styles:
+Style preference: blend
+
+Which framework/platform is your target? (or 'standalone' for pure SDK usage)
+> Svelte
+
+# Generate prompts focused on Svelte integration
+$ quickstart-prompt-generator generate --format markdown --output auth0-svelte-prompts.md
 ```
 
-### Standalone SDK Usage Example
+### Standalone Mode Example
 
 ```bash
-# Start a new session for pure SDK usage
 $ quickstart-prompt-generator init
 
 Which SDK/library are you using?
-> stripe-python
+> auth0-api-python
 
 What is the SDK language?
 > Python
 
 SDK repository or documentation link? (optional)
-> https://github.com/stripe/stripe-python
+> https://github.com/auth0/auth0-api-python
 
 Reference quickstart links (one per line, empty to finish):
-  Reference: https://stripe.com/docs/api/python
-  Reference: https://docs.python-requests.org/en/master/user/quickstart/
+  Reference: https://auth0.com/docs/quickstart/backend/python/interactive
+  Reference: https://vercel.com/docs/functions/runtimes/python
   Reference: 
 
 Which framework/platform is your target? (or 'standalone' for pure SDK usage)
 > standalone
 
 # Generate prompts focused on direct SDK usage
-$ quickstart-prompt-generator generate --format markdown --output stripe-standalone-prompts.md
+$ quickstart-prompt-generator generate --format markdown --output auth0-standalone-prompts.md
+```
+
+### Multiple Style Reference with Blending
+
+```bash
+📝 Documentation Style Preference
+You provided 2 reference documents:
+  1. https://auth0.com/docs/quickstart/backend/python/interactive
+  2. https://vercel.com/docs/functions/runtimes/python
+
+Which documentation style would you like to primarily emulate?
+Enter the number (1, 2, etc.) or 'blend' to combine all styles:
+Style preference: blend  # Combines best of both Auth0 and Vercel styles
+```
+
+### Smart Session Management
+
+```bash
+$ quickstart-prompt-generator init
+
+⚠️  Existing session detected!
+
+SDK: auth0-api-python
+Language: Python
+Target: standalone
+
+What would you like to do?
+Choose an option (continue, reset, cancel): continue
+
+# Continue editing your existing session with all previous values preserved
+# Use 'back' during questionnaire to fix any mistakes
 ```
 
 For more detailed examples including standalone mode, style preferences, and advanced workflows, see **[docs/EXAMPLES.md](docs/EXAMPLES.md)**.
