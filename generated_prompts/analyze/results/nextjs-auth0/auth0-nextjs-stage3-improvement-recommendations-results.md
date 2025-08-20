@@ -82,8 +82,8 @@ export const withAuth = withApiAuthRequired(async function handler(
 
 ### Section: Prerequisites and Environment Setup
 
-**Current Problem**: Assumes Next.js project exists, no version specifications
-**Recommended Change**: Complete environment setup with validation
+**Current Problem**: Assumes Next.js project exists, no version specifications  
+**Recommended Change**: Complete environment setup with validation  
 **New Content**:
 
 ```markdown
@@ -125,8 +125,8 @@ cd my-auth0-app
 
 ### Section: Installation and Configuration
 
-**Current Problem**: Basic installation without validation or error handling
-**Recommended Change**: Installation with immediate validation
+**Current Problem**: Basic installation without validation or error handling  
+**Recommended Change**: Installation with immediate validation  
 **New Content**:
 
 ```markdown
@@ -182,8 +182,8 @@ export function validateAuth0Config() {
 
 ### Section: Implementation Examples
 
-**Current Problem**: File references without actual code
-**Recommended Change**: Complete, production-ready implementations
+**Current Problem**: File references without actual code  
+**Recommended Change**: Complete, production-ready implementations  
 **New Content**:
 
 **Complete Middleware Implementation**:
@@ -317,6 +317,7 @@ export default async function HomePage() {
 ```
 
 ### Migration Plan:
+
 1. **Phase 1**: Add Quick Start section to existing structure
 2. **Phase 2**: Reorganize existing content into new sections
 3. **Phase 3**: Add advanced features and production guidance
@@ -326,7 +327,7 @@ export default async function HomePage() {
 ## 4. New Sections to Add
 
 ### Section: Quick Start (Hello World)
-**Purpose**: Get developers to success in under 5 minutes
+**Purpose**: Get developers to success in under 5 minutes  
 **Content Outline**:
 - One-command project setup
 - Minimal authentication example
@@ -355,7 +356,7 @@ export default function QuickStart() {
 ```
 
 ### Section: Comprehensive Troubleshooting
-**Purpose**: Resolve 90% of implementation issues
+**Purpose**: Resolve 90% of implementation issues  
 **Content Outline**:
 
 ```markdown
@@ -397,10 +398,9 @@ Enable debug logging to troubleshoot issues:
 // Add to .env.local
 DEBUG=@auth0/nextjs-auth0:*
 ```
-```
 
 ### Section: Production Security Checklist
-**Purpose**: Ensure secure production deployments
+**Purpose**: Ensure secure production deployments  
 **Content Outline**:
 
 ```markdown
@@ -423,7 +423,9 @@ DEBUG=@auth0/nextjs-auth0:*
 - [ ] Validate JWT tokens
 - [ ] Set secure session cookies
 - [ ] Enable security headers
+```
 
+**Production middleware example:**
 ```typescript
 // Production middleware example
 import { withMiddlewareAuthRequired } from '@auth0/nextjs-auth0/edge';
@@ -437,7 +439,6 @@ export default withMiddlewareAuthRequired({
     sameSite: 'strict'
   }
 });
-```
 ```
 
 ---
@@ -629,6 +630,7 @@ export default function AuthGuard({
 ### Navigation Aids
 
 **Enhanced Table of Contents:**
+
 ```markdown
 ## Table of Contents
 - [🚀 Quick Start (5 min)](#quick-start)
@@ -646,6 +648,7 @@ export default function AuthGuard({
 ### Visual Elements
 
 **Authentication Flow Diagram:**
+
 ```mermaid
 graph TD
     A[User visits app] --> B{Authenticated?}
@@ -658,6 +661,7 @@ graph TD
 ```
 
 **File Structure Visualization:**
+
 ```
 src/
 ├── app/
@@ -676,6 +680,7 @@ src/
 ### Interactive Elements
 
 **Configuration Generator:**
+
 ```typescript
 // Interactive configuration helper
 export function generateConfig(domain: string, clientId: string) {
