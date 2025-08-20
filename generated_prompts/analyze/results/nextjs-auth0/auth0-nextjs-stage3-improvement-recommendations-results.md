@@ -172,7 +172,7 @@ export default async function Home() {
 
 **NEW CONTENT TO ADD** (Insert after main heading):
 
-## Prerequisites
+### Prerequisites
 
 Before starting this tutorial, ensure you have:
 
@@ -214,9 +214,9 @@ git --version     # Should show any recent version
 
 **NEW CONTENT TO ADD** (Insert after Prerequisites):
 
-## Project Setup
+### Project Setup
 
-### Option 1: Start from Scratch (Recommended)
+#### Option 1: Start from Scratch (Recommended)
 
 Create a new Next.js project with TypeScript support:
 
@@ -232,14 +232,14 @@ npx create-next-app@latest my-auth0-app \
 cd my-auth0-app
 ```
 
-### Option 2: Add to Existing Project
+#### Option 2: Add to Existing Project
 
 If you have an existing Next.js project, ensure it uses:
 - Next.js 13.0+ with App Router
 - TypeScript configuration
 - `src/app` directory structure
 
-### Verify Project Structure
+#### Verify Project Structure
 
 Your project should have this structure:
 ```
@@ -255,7 +255,7 @@ my-auth0-app/
 └── tsconfig.json
 ```
 
-### Test Basic Setup
+#### Test Basic Setup
 
 Start the development server to verify everything works:
 
@@ -287,9 +287,9 @@ Visit [http://localhost:3000](http://localhost:3000) to see your app running.
 
 **ENHANCED CONTENT**:
 
-## Step 1: Configure Auth0
+### Step 1: Configure Auth0
 
-### Understanding Auth0 Applications
+#### Understanding Auth0 Applications
 
 An Auth0 Application represents your Next.js app in the Auth0 system. It provides:
 - **Client ID**: Public identifier for your application
@@ -298,7 +298,7 @@ An Auth0 Application represents your Next.js app in the Auth0 system. It provide
 - **Callback URLs**: Where users return after login
 - **Logout URLs**: Where users go after logout
 
-### Create Your Auth0 Application
+#### Create Your Auth0 Application
 
 1. **Navigate to Applications**: In your [Auth0 Dashboard](https://manage.auth0.com/), go to Applications > Applications
 2. **Create Application**: Click "Create Application"
@@ -307,29 +307,29 @@ An Auth0 Application represents your Next.js app in the Auth0 system. It provide
    - **Type**: Select "Regular Web Applications"
    - **Technology**: Choose "Next.js"
 
-### Configure Application URLs
+#### Configure Application URLs
 
 > ⚠️ **Important**: These URLs must match exactly, including port numbers and protocols.
 
-#### Allowed Callback URLs
+##### Allowed Callback URLs
 ```
 http://localhost:3000/api/auth/callback
 ```
 *This is where Auth0 redirects users after successful login*
 
-#### Allowed Logout URLs  
+##### Allowed Logout URLs
 ```
 http://localhost:3000
 ```
 *This is where users go after logging out*
 
-#### Allowed Web Origins
+##### Allowed Web Origins
 ```
 http://localhost:3000
 ```
 *This allows your app to make requests to Auth0*
 
-### Verify Configuration
+#### Verify Configuration
 
 After saving your settings:
 1. Note your **Domain** (e.g., `your-tenant.us.auth0.com`)
@@ -338,7 +338,7 @@ After saving your settings:
 
 > ✅ **Checkpoint**: You should have Domain, Client ID, and Client Secret ready for the next step.
 
-### Common Configuration Issues
+#### Common Configuration Issues
 
 **Problem**: "Callback URL mismatch" error  
 **Solution**: Ensure callback URL exactly matches `http://localhost:3000/api/auth/callback`
@@ -359,9 +359,9 @@ After saving your settings:
 
 **ENHANCED CONTENT**:
 
-## Step 2: Install the Auth0 Next.js SDK
+### Step 2: Install the Auth0 Next.js SDK
 
-### Install the SDK Package
+#### Install the SDK Package
 
 The Auth0 Next.js SDK provides React hooks, API route handlers, and middleware for seamless authentication integration.
 
@@ -369,7 +369,7 @@ The Auth0 Next.js SDK provides React hooks, API route handlers, and middleware f
 npm install @auth0/nextjs-auth0
 ```
 
-### Verify Installation
+#### Verify Installation
 
 Check that the package was installed correctly:
 
@@ -379,14 +379,14 @@ npm list @auth0/nextjs-auth0
 
 You should see version 3.0.0 or higher.
 
-### What This Package Provides
+#### What This Package Provides
 
 - **React Hooks**: `useUser()`, `withPageAuthRequired()`
 - **API Helpers**: `getSession()`, `getAccessToken()`
 - **Route Handlers**: `/api/auth/[...auth0].js` endpoints
 - **Middleware Support**: Session management and route protection
 
-### Installation Troubleshooting
+#### Installation Troubleshooting
 
 **Problem**: `npm ERR! peer dep missing` warnings  
 **Solution**: These are usually safe to ignore, but you can install peer dependencies:
@@ -408,11 +408,11 @@ npm install react@^18.0.0 react-dom@^18.0.0 next@^13.0.0
 - **Purpose**: Provides immediate value demonstration and confidence building
 - **Complete Content Draft**:
 
-## Quick Start (5 Minutes)
+### Quick Start (5 Minutes)
 
 Get authentication working in under 5 minutes with this minimal setup. You can customize and enhance later.
 
-### Step 1: Clone the Starter Template
+#### Step 1: Clone the Starter Template
 
 ```bash
 git clone https://github.com/auth0-samples/nextjs-auth0-sample.git my-auth0-quickstart
@@ -420,7 +420,7 @@ cd my-auth0-quickstart
 npm install
 ```
 
-### Step 2: Set Up Environment Variables
+#### Step 2: Set Up Environment Variables
 
 Create `.env.local` in your project root:
 
@@ -433,7 +433,7 @@ AUTH0_CLIENT_ID='YOUR_CLIENT_ID'
 AUTH0_CLIENT_SECRET='YOUR_CLIENT_SECRET'
 ```
 
-### Step 3: Test Authentication
+#### Step 3: Test Authentication
 
 ```bash
 npm run dev
@@ -441,7 +441,7 @@ npm run dev
 
 Visit [http://localhost:3000](http://localhost:3000) and click "Login" to test.
 
-### Step 4: Verify Success
+#### Step 4: Verify Success
 
 You should see:
 1. Redirect to Auth0 login page
@@ -451,7 +451,7 @@ You should see:
 
 > ✅ **Success**: If you can log in and out successfully, Auth0 is working! Continue with the detailed tutorial below to understand the implementation.
 
-### Next Steps
+#### Next Steps
 
 - Continue with [Detailed Implementation](#detailed-implementation) to understand the code
 - Customize the [User Interface](#customizing-the-ui) 
@@ -462,11 +462,11 @@ You should see:
 - **Purpose**: Provides resolution for common issues and debugging guidance
 - **Complete Content Draft**:
 
-## Troubleshooting Guide
+### Troubleshooting Guide
 
-### Common Setup Issues
+#### Common Setup Issues
 
-#### Issue: "Cannot find module '@auth0/nextjs-auth0'"
+##### Issue: "Cannot find module '@auth0/nextjs-auth0'"
 **Symptoms**: Import errors in your IDE or runtime errors  
 **Causes**: Package not installed or Node modules corrupted  
 **Solutions**:
@@ -474,7 +474,7 @@ You should see:
 2. Clear cache: `npm cache clean --force && rm -rf node_modules && npm install`
 3. Restart your development server: `npm run dev`
 
-#### Issue: "AUTH0_SECRET is not set"
+##### Issue: "AUTH0_SECRET is not set"
 **Symptoms**: Application crashes on startup with environment variable error  
 **Causes**: Missing or incorrectly named environment variables  
 **Solutions**:
@@ -483,7 +483,7 @@ You should see:
 3. Ensure no spaces around the `=` sign in env vars
 4. Restart dev server after changing env vars
 
-#### Issue: "Callback URL mismatch"
+##### Issue: "Callback URL mismatch"
 **Symptoms**: Error page after login attempt, URL in browser shows Auth0 error  
 **Causes**: Auth0 Dashboard callback URLs don't match your application URLs  
 **Solutions**:
@@ -492,7 +492,7 @@ You should see:
 3. Ensure no trailing slashes or extra characters
 4. Save settings in Auth0 Dashboard
 
-#### Issue: "User is undefined" or authentication state not persisting
+##### Issue: "User is undefined" or authentication state not persisting
 **Symptoms**: `useUser()` returns undefined even after login  
 **Causes**: Missing API route configuration or session issues  
 **Solutions**:
@@ -501,9 +501,9 @@ You should see:
 3. Check browser developer console for errors
 4. Verify `AUTH0_BASE_URL` matches your development URL exactly
 
-### Development Environment Issues
+#### Development Environment Issues
 
-#### Issue: "HTTPS required" in production
+##### Issue: "HTTPS required" in production
 **Symptoms**: Authentication fails when deployed  
 **Causes**: Auth0 requires HTTPS in production environments  
 **Solutions**:
@@ -511,7 +511,7 @@ You should see:
 2. Configure your hosting platform (Vercel, Netlify) for HTTPS
 3. Update Auth0 Dashboard URLs to use HTTPS
 
-#### Issue: TypeScript errors with Auth0 types
+##### Issue: TypeScript errors with Auth0 types
 **Symptoms**: TypeScript compilation errors related to Auth0 imports  
 **Causes**: Outdated type definitions or conflicting packages  
 **Solutions**:
@@ -522,31 +522,31 @@ You should see:
    import type { UserProfile } from '@auth0/nextjs-auth0/client';
    ```
 
-### Debugging Steps
+#### Debugging Steps
 
-#### 1. Verify Environment Variables
+##### 1. Verify Environment Variables
 ```bash
 # Check if variables are loaded (will show 'undefined' if missing)
 node -e "console.log(process.env.AUTH0_DOMAIN)"
 ```
 
-#### 2. Check Network Requests
+##### 2. Check Network Requests
 1. Open browser Developer Tools → Network tab
 2. Attempt login
 3. Look for requests to `/api/auth/login` and your Auth0 domain
 4. Check for 4xx or 5xx status codes
 
-#### 3. Inspect Session Data
+##### 3. Inspect Session Data
 ```typescript
 // Add this to your page component for debugging
 const { user, error, isLoading } = useUser();
 console.log('Auth Debug:', { user, error, isLoading });
 ```
 
-#### 4. Validate Auth0 Configuration
+##### 4. Validate Auth0 Configuration
 Use the [Auth0 Configuration Validator](https://auth0.com/docs/troubleshoot/configuration-validator) to check your setup.
 
-### Getting Help
+#### Getting Help
 
 If you're still experiencing issues:
 
@@ -567,11 +567,11 @@ When asking for help, include:
 - **Purpose**: Guides developers through production deployment considerations
 - **Complete Content Draft**:
 
-## Production Deployment
+### Production Deployment
 
-### Environment Configuration
+#### Environment Configuration
 
-#### Production Environment Variables
+##### Production Environment Variables
 
 Update your `.env.production` or hosting platform environment variables:
 
@@ -586,16 +586,16 @@ AUTH0_CLIENT_SECRET='your-production-client-secret'
 
 > ⚠️ **Security**: Never commit production secrets to version control. Use your hosting platform's environment variable settings.
 
-#### Generate Production Secret
+##### Generate Production Secret
 
 ```bash
 # Generate a secure secret for production
 openssl rand -hex 32
 ```
 
-### Auth0 Dashboard Configuration
+#### Auth0 Dashboard Configuration
 
-#### Update Production URLs
+##### Update Production URLs
 
 In your Auth0 Dashboard, add production URLs to:
 
@@ -619,9 +619,9 @@ http://localhost:3000
 
 > 💡 **Tip**: Keep localhost URLs for development alongside production URLs.
 
-### Platform-Specific Deployment
+#### Platform-Specific Deployment
 
-#### Vercel Deployment
+##### Vercel Deployment
 
 1. **Connect Repository**: Import your project to Vercel
 2. **Set Environment Variables**: 
@@ -636,7 +636,7 @@ npm i -g vercel
 vercel --prod
 ```
 
-#### Netlify Deployment
+##### Netlify Deployment
 
 1. **Build Settings**:
    - Build command: `npm run build`
@@ -646,7 +646,7 @@ vercel --prod
    - Add all `AUTH0_*` variables
 3. **Deploy**: Connect your git repository
 
-#### Docker Deployment
+##### Docker Deployment
 
 ```dockerfile
 # Dockerfile
@@ -660,9 +660,9 @@ EXPOSE 3000
 CMD ["npm", "start"]
 ```
 
-### Performance Optimization
+#### Performance Optimization
 
-#### Session Configuration
+##### Session Configuration
 
 Optimize session handling for production:
 
@@ -688,25 +688,25 @@ const auth0 = initAuth0({
 });
 ```
 
-#### Caching and CDN
+##### Caching and CDN
 
 - Enable caching for static assets
 - Use CDN for global distribution
 - Configure appropriate cache headers for authenticated content
 
-### Security Considerations
+#### Security Considerations
 
-#### HTTPS Requirements
+##### HTTPS Requirements
 - Auth0 requires HTTPS in production
 - Configure SSL certificates on your hosting platform
 - Redirect HTTP to HTTPS
 
-#### Environment Security
+##### Environment Security
 - Use separate Auth0 applications for development and production
 - Rotate secrets regularly
 - Monitor Auth0 logs for suspicious activity
 
-#### Content Security Policy
+##### Content Security Policy
 
 Add CSP headers to enhance security:
 
@@ -729,9 +729,9 @@ const nextConfig = {
 };
 ```
 
-### Monitoring and Maintenance
+#### Monitoring and Maintenance
 
-#### Health Checks
+##### Health Checks
 
 Implement health check endpoints:
 
@@ -748,7 +748,7 @@ export async function GET() {
 }
 ```
 
-#### Logging
+##### Logging
 
 Monitor authentication events:
 
@@ -771,13 +771,13 @@ export default async function HomePage() {
 }
 ```
 
-#### Regular Maintenance Tasks
+##### Regular Maintenance Tasks
 
 - **Monthly**: Review Auth0 logs for errors or suspicious activity
 - **Quarterly**: Update Auth0 SDK to latest version
 - **As needed**: Rotate production secrets and certificates
 
-### Deployment Checklist
+#### Deployment Checklist
 
 Before going live:
 
