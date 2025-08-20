@@ -69,6 +69,8 @@ This guide assumes you're familiar with:
 - [Next.js App Router Guide](https://nextjs.org/docs/app)
 - [TypeScript Basics](https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes.html)
 
+```
+
 
 ### Priority #2: Implement Robust Troubleshooting Section
 **Issue:** No systematic debugging guidance when issues arise  
@@ -77,6 +79,7 @@ This guide assumes you're familiar with:
 **Effort:** 2-3 days  
 
 **Implementation:**
+```markdown
 ## Troubleshooting
 
 ### Quick Diagnostic Checklist
@@ -95,7 +98,7 @@ If your authentication isn't working, check these items in order:
    - Application type is set to "Regular Web Application"
 
 3. **File Structure** ✅
-   ```
+   
    your-app/
    ├── .env.local
    ├── src/
@@ -103,7 +106,7 @@ If your authentication isn't working, check these items in order:
    │   ├── app/
    │   │   ├── page.tsx
    │   │   └── api/auth/[auth0]/route.ts
-   ```
+
 
 ### Common Error Solutions
 
@@ -179,7 +182,7 @@ If none of these solutions work:
    DEBUG=@auth0/nextjs-auth0*
    ```
 
-
+```
 ### Priority #3: Provide Complete, Runnable Code Examples
 **Issue:** Code examples are incomplete and not immediately runnable  
 **Impact:** Developers waste time guessing missing imports and context  
@@ -274,7 +277,7 @@ AUTH0_CLIENT_SECRET='your_client_secret'
 node -e "require('dotenv').config({path:'.env.local'}); console.log('AUTH0_SECRET length:', process.env.AUTH0_SECRET?.length || 'missing')"
 # Should output: AUTH0_SECRET length: 64
 ```
-
+```
 
 #### Rationale
 This provides immediate validation at each step, preventing compound errors and giving developers confidence their setup is correct.
@@ -288,6 +291,7 @@ Partial code snippets that don't show complete file context.
 Complete, immediately runnable file examples with full imports and exports.
 
 #### New Content
+```markdown
 ## Implementation
 
 ### Step 1: Create the Auth0 API Route
@@ -383,7 +387,7 @@ export const config = {
 - Runs on Edge Runtime for better performance
 
 **Note:** To protect only specific routes, modify the matcher or use route-specific protection instead.
-
+```
 
 ### Section: User Interface Integration
 
