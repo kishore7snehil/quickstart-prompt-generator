@@ -9,11 +9,14 @@ I need your help analyzing an existing quickstart documentation to identify its 
 
 ## Documentation to Analyze
 
-**IMPORTANT: First, please visit and extract the complete content from this URL (including all code examples, interactive elements, and documentation text):**
+**DOCUMENTATION SOURCE URL:** https://auth0.com/docs/quickstart/webapp/nextjs/interactive
 
-https://auth0.com/docs/quickstart/webapp/nextjs/interactive
+**IMPORTANT INSTRUCTION:**
+If you cannot directly access web content (most LLMs cannot browse the internet), please respond with:
 
-After extracting the content, analyze the documentation as requested below.
+"I cannot directly access web URLs. Please visit https://auth0.com/docs/quickstart/webapp/nextjs/interactive and copy the complete documentation content (including all code examples, setup instructions, and text), then paste it here and ask me to analyze it again."
+
+If you CAN access web content, please extract the complete documentation from the URL above (including all code examples, interactive elements, and documentation text), then proceed with the analysis below.
 
 
 ## SDK Context
@@ -66,4 +69,16 @@ For each criterion below, assign a score from **0** (missing/very poor) to **5**
 2. Calculate and report the overall average score.
 3. Provide a concise summary of the quickstart's key strengths and weaknesses.
 4. List at least five specific, prioritized recommendations for improvement based on the lowest-scoring areas.
+
+## Output Instructions
+
+**If you are in AGENTIC MODE with file creation capabilities:**
+- Create a results file at: `generated_prompts/analyze/results/nextjs-auth0-stage1-documentation-analysis-results.md`
+- Structure as a comprehensive analysis with scores, justifications, and recommendations
+- Include executive summary and detailed findings
+
+**If you are in CHAT MODE without file creation:**
+- Provide the complete analysis as copy-pastable markdown in your response
+- Use proper markdown formatting with clear sections, scores, and recommendations
+- Structure it as a complete document ready for saving
 ```

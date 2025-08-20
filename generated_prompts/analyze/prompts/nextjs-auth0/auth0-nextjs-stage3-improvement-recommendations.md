@@ -3,7 +3,7 @@
 **Instructions:** Copy this prompt + outputs from stages 1 & 2 to get specific improvement suggestions.
 
 ```
- Quickstart Documentation Improvement Recommendations
+# Quickstart Documentation Improvement Recommendations
 
 Based on the documentation analysis and gap analysis, provide specific, actionable recommendations to improve the nextjs-auth0 quickstart documentation.
 
@@ -85,4 +85,17 @@ How to measure improvement effectiveness:
 - **Version Updates**: [How to handle SDK changes]
 
 Provide specific, actionable recommendations that the documentation team can implement immediately. Include actual content suggestions, not just abstract advice.
+
+## Output Instructions
+
+**If you are in AGENTIC MODE with file creation capabilities:**
+- Create a results file at: `generated_prompts/analyze/results/nextjs-auth0-stage3-improvement-recommendations-results.md`
+- Structure as a comprehensive improvement plan with detailed examples
+- Include complete code examples, specific content, and implementation roadmap
+
+**If you are in CHAT MODE without file creation:**
+- Provide the complete improvement recommendations as copy-pastable markdown in your response
+- Use proper markdown formatting with clear sections and actionable items
+- Include all code examples, content suggestions, and implementation details
+- Structure it as a complete document ready for saving
 ```

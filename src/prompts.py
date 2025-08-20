@@ -136,6 +136,18 @@ Please provide a comprehensive analysis of this SDK covering the following areas
 ## Output Format
 Please structure your analysis clearly with headers and bullet points. Focus on information that would be valuable for creating developer quickstart documentation. Be comprehensive but practical - emphasize what developers need to know to get started successfully.
 
+## Output Instructions
+
+**If you are in AGENTIC MODE with file creation capabilities:**
+- Create a results file at: `generated_prompts/analysis/results/{{ sdk_name|lower|replace(' ', '-')|replace('_', '-') }}-sdk-analysis-results.md`
+- Structure the analysis as a comprehensive markdown document with proper headers
+- Include a summary section at the top with key insights
+
+**If you are in CHAT MODE without file creation:**
+- Provide the complete analysis as copy-pastable markdown in your response
+- Use proper markdown formatting with headers, lists, and code blocks
+- Structure it as a complete document ready for saving
+
 ---
 **Next Steps**: After you provide this analysis, I'll use it along with reference documentation styles to generate a targeted quickstart guide for {{ target_framework }}."""
     
@@ -236,7 +248,15 @@ Please analyze these reference quickstart documents:
 - **Validation & Checkpoints**: How does the documentation help developers verify successful setup?
 
 ## Output Format
-Please provide a detailed style guide based on your analysis, formatted as:
+## Output Instructions
+
+**If you are in AGENTIC MODE with file creation capabilities:**
+- Create a results file at: `generated_prompts/generation/style/{{ sdk_name|lower|replace(' ', '-')|replace('_', '-') }}-style-extraction-results.md`
+- Structure the style guide as a comprehensive markdown document
+- Include examples and specific recommendations
+
+**If you are in CHAT MODE without file creation:**
+- Provide a detailed style guide based on your analysis, formatted as:
 
 ```markdown
 # Style Guide Extract
@@ -324,12 +344,20 @@ Ensure your quickstart matches:
 Do NOT use a generic structure - adapt to the specific patterns found in the reference documentation.
 
 ## Output Format
-Generate the quickstart documentation in Markdown format, ready for publication. Include:
-- Clear section headers
-- Working code examples with syntax highlighting
-- Step-by-step numbered instructions where appropriate
-- Callouts for important information (tips, warnings, notes)
-- Links to relevant additional resources
+## Output Instructions
+
+**If you are in AGENTIC MODE with file creation capabilities:**
+- Create the final quickstart at: `generated_prompts/generation/results/{{ sdk_name|lower|replace(' ', '-')|replace('_', '-') }}-{{ target_framework|lower|replace(' ', '-')|replace('_', '-') }}-quickstart.md`
+- Structure as a complete, publication-ready quickstart guide
+- Include comprehensive examples and clear instructions
+
+**If you are in CHAT MODE without file creation:**
+- Generate the quickstart documentation in Markdown format, ready for publication. Include:
+  - Clear section headers
+  - Working code examples with syntax highlighting
+  - Step-by-step numbered instructions where appropriate
+  - Callouts for important information (tips, warnings, notes)
+  - Links to relevant additional resources
 
 ## Quality Criteria
 The final quickstart should:
@@ -400,11 +428,14 @@ I need your help analyzing an existing quickstart documentation to identify its 
 ## Documentation to Analyze
 
 {% if existing_doc_content.startswith('URL_TO_EXTRACT:') -%}
-**IMPORTANT: First, please visit and extract the complete content from this URL (including all code examples, interactive elements, and documentation text):**
+**DOCUMENTATION SOURCE URL:** {{ existing_doc_content.replace('URL_TO_EXTRACT: ', '') }}
 
-{{ existing_doc_content.replace('URL_TO_EXTRACT: ', '') }}
+**IMPORTANT INSTRUCTION:**
+If you cannot directly access web content (most LLMs cannot browse the internet), please respond with:
 
-After extracting the content, analyze the documentation as requested below.
+"I cannot directly access web URLs. Please visit {{ existing_doc_content.replace('URL_TO_EXTRACT: ', '') }} and copy the complete documentation content (including all code examples, setup instructions, and text), then paste it here and ask me to analyze it again."
+
+If you CAN access web content, please extract the complete documentation from the URL above (including all code examples, interactive elements, and documentation text), then proceed with the analysis below.
 {% else -%}
 ```
 {{ existing_doc_content }}
@@ -454,7 +485,19 @@ For each criterion below, assign a score from **0** (missing/very poor) to **5**
 1. Produce a structured list showing each criterion, its 0–5 score and a short justification.
 2. Calculate and report the overall average score.
 3. Provide a concise summary of the quickstart's key strengths and weaknesses.
-4. List at least five specific, prioritized recommendations for improvement based on the lowest-scoring areas."""
+4. List at least five specific, prioritized recommendations for improvement based on the lowest-scoring areas.
+
+## Output Instructions
+
+**If you are in AGENTIC MODE with file creation capabilities:**
+- Create a results file at: `generated_prompts/analyze/results/{{ sdk_name|lower|replace(' ', '-')|replace('_', '-') }}-stage1-documentation-analysis-results.md`
+- Structure as a comprehensive analysis with scores, justifications, and recommendations
+- Include executive summary and detailed findings
+
+**If you are in CHAT MODE without file creation:**
+- Provide the complete analysis as copy-pastable markdown in your response
+- Use proper markdown formatting with clear sections, scores, and recommendations
+- Structure it as a complete document ready for saving"""
     
     def _get_improvement_gap_template(self) -> str:
         """Template for gap analysis against best practices."""
@@ -518,7 +561,19 @@ For each gap identified, please:
 - Rate the priority (High/Medium/Low)  
 - Suggest specific content that should be added
 
-Focus especially on gaps that would prevent developers from successfully implementing the SDK in their projects."""
+Focus especially on gaps that would prevent developers from successfully implementing the SDK in their projects.
+
+## Output Instructions
+
+**If you are in AGENTIC MODE with file creation capabilities:**
+- Create a results file at: `generated_prompts/analyze/results/{{ sdk_name|lower|replace(' ', '-')|replace('_', '-') }}-stage2-gap-analysis-results.md`
+- Structure as a comprehensive gap analysis with prioritized recommendations
+- Include specific examples and actionable suggestions
+
+**If you are in CHAT MODE without file creation:**
+- Provide the complete gap analysis as copy-pastable markdown in your response
+- Use proper markdown formatting with clear sections and priority ratings
+- Structure it as a complete document ready for saving"""
     
     def _get_improvement_synthesis_template(self) -> str:
         """Template for generating specific improvement recommendations."""
@@ -603,7 +658,20 @@ How to measure improvement effectiveness:
 - **Feedback Loops**: [How to collect ongoing input]
 - **Version Updates**: [How to handle SDK changes]
 
-Provide specific, actionable recommendations that the documentation team can implement immediately. Include actual content suggestions, not just abstract advice."""
+Provide specific, actionable recommendations that the documentation team can implement immediately. Include actual content suggestions, not just abstract advice.
+
+## Output Instructions
+
+**If you are in AGENTIC MODE with file creation capabilities:**
+- Create a results file at: `generated_prompts/analyze/results/{{ sdk_name|lower|replace(' ', '-')|replace('_', '-') }}-stage3-improvement-recommendations-results.md`
+- Structure as a comprehensive improvement plan with detailed examples
+- Include complete code examples, specific content, and implementation roadmap
+
+**If you are in CHAT MODE without file creation:**
+- Provide the complete improvement recommendations as copy-pastable markdown in your response
+- Use proper markdown formatting with clear sections and actionable items
+- Include all code examples, content suggestions, and implementation details
+- Structure it as a complete document ready for saving"""
 
     def get_template_info(self) -> Dict[str, str]:
         """Get information about available templates."""
