@@ -435,7 +435,65 @@ If you cannot directly access web content (most LLMs cannot browse the internet)
 
 "I cannot directly access web URLs. Please visit {{ existing_doc_content.replace('URL_TO_EXTRACT: ', '') }} and copy the complete documentation content (including all code examples, setup instructions, and text), then paste it here and ask me to analyze it again."
 
-If you CAN access web content, please extract the complete documentation from the URL above (including all code examples, interactive elements, and documentation text), then proceed with the analysis below.
+If you CAN access web content, please:
+1. **Extract the complete documentation content** including:
+   - All section headings (H1, H2, H3, etc.) with exact text
+   - All paragraph content and instructional text
+   - Every code example, snippet, and command
+   - All configuration examples and file contents
+   - Any callouts, warnings, notes, or special formatting
+   - All links and references mentioned
+   - Any visual descriptions or image alt text
+
+2. **Structure the extracted content** in markdown format preserving:
+   - Original heading hierarchy
+   - Code block language specifications
+   - All inline code and variables
+   - Original formatting and emphasis
+
+3. **Handle Dynamic Content**: If you encounter code examples that are:
+   - Referenced by file names but content not visible
+   - Loaded dynamically via JavaScript
+   - Behind interactive tabs or collapsible sections
+   - In code editors or sandboxes that don't show source
+   
+   **Explicitly note these in your analysis** and create structured placeholders:
+   
+   ```
+   ⚠️ DYNAMIC CONTENT DETECTED
+   
+   Some code examples could not be extracted due to dynamic loading.
+   
+   ACTION REQUIRED: Please visit the original documentation and fill in the missing code below:
+   ```
+   
+   Then create a dedicated section with placeholders for each missing code example:
+   
+   ```
+   ## Missing Code Content (Please Fill In)
+   
+   ### [Filename/Section Name 1]
+   **Location in documentation**: [Describe where to find this]
+   **Purpose**: [What this code does]
+   
+   ```[language]
+   // TODO: Add complete code content from documentation
+   // Instructions: Copy the full code example from [specific location]
+   ```
+   
+   ### [Filename/Section Name 2]
+   **Location in documentation**: [Describe where to find this]
+   **Purpose**: [What this code does]
+   
+   ```[language]
+   // TODO: Add complete code content from documentation
+   // Instructions: Copy the full code example from [specific location]
+   ```
+   
+   [Continue for each missing code example]
+   ```
+
+4. **Then proceed with the analysis below**
 {% else -%}
 ```
 {{ existing_doc_content }}
@@ -456,7 +514,21 @@ Please pay special attention to these aspects:
 
 ## Evaluation Request
 
-You are an expert developer-advocate and technical writer. Evaluate this quickstart documentation using the structured rubric below, comparing it against widely accepted quickstart best practices.
+You are an expert developer-advocate and technical writer. 
+
+**FIRST: Document Content Analysis**
+Before scoring, provide a complete content inventory:
+
+### Content Inventory
+List every section found in the documentation:
+1. **Section Headings**: [List all H1, H2, H3 headings exactly as they appear]
+2. **Code Examples**: [Count and list all code blocks with their purposes]
+3. **Configuration Elements**: [List all config files, environment variables, settings mentioned]
+4. **External Dependencies**: [List all external services, tools, accounts required]
+5. **Step-by-step Instructions**: [Count numbered/ordered steps provided]
+
+**SECOND: Detailed Evaluation**
+Now evaluate this quickstart documentation using the structured rubric below, comparing it against widely accepted quickstart best practices.
 
 ### Evaluation Rubric
 For each criterion below, assign a score from **0** (missing/very poor) to **5** (exemplary) and justify the score with concrete observations from the document:
@@ -482,10 +554,24 @@ For each criterion below, assign a score from **0** (missing/very poor) to **5**
 10. **Completeness & Accuracy** – Whether the quickstart allows a developer to go from zero to a working implementation, including all required steps and accurate integration.
 
 ### Output Format
-1. Produce a structured list showing each criterion, its 0–5 score and a short justification.
+
+**Part 1: Content Inventory** (as specified above)
+
+**Part 2: Scoring Analysis**
+1. Produce a structured list showing each criterion, its 0–5 score and a short justification with specific examples from the content.
 2. Calculate and report the overall average score.
-3. Provide a concise summary of the quickstart's key strengths and weaknesses.
-4. List at least five specific, prioritized recommendations for improvement based on the lowest-scoring areas.
+
+**Part 3: Gap Analysis**
+3. **Missing Elements**: What essential quickstart components are completely absent?
+4. **Incomplete Sections**: What sections exist but lack sufficient detail?
+5. **Content Quality Issues**: What existing content has problems?
+
+**Part 4: Strategic Recommendations**
+6. List five specific, prioritized recommendations for improvement based on the lowest-scoring areas, each with:
+   - **Current State**: What exists now
+   - **Problem**: Why it's insufficient
+   - **Recommendation**: Specific action to take
+   - **Impact**: Why this improvement matters
 
 ## Output Instructions
 
@@ -591,74 +677,125 @@ Based on the documentation analysis and gap analysis, provide specific, actionab
 
 ## Improvement Synthesis Request
 
-Generate a comprehensive improvement plan with specific recommendations:
+Generate a comprehensive improvement plan with clear, actionable recommendations:
 
-### 1. High-Priority Fixes
-Identify the top 3-5 issues that should be addressed first:
-- **Issue**: [Specific problem]
-- **Impact**: [Why this matters for developers]
-- **Solution**: [Detailed fix with examples]
-- **Effort**: [Estimated work required]
+## Improvement Framework
 
-### 2. Content Improvements
-For each section that needs work:
+### 1. Critical Issues (Fix Immediately)
+For the top 3-5 blocking issues:
 
-#### [Section Name]
-- **Current Problem**: [What's wrong now]
-- **Recommended Change**: [Specific improvement]
-- **New Content**: [Actual text/code to add or replace]
-- **Rationale**: [Why this change helps developers]
+#### Issue #[N]: [Specific Problem Title]
+- **Current State**: [What exists in documentation now - quote exact text/sections]
+- **Problem**: [Why current approach fails developers]
+- **Root Cause**: [Underlying reason for the problem]
+- **Recommended Action**: 
+  - [ ] **REMOVE**: [Specific content to delete]
+  - [ ] **MODIFY**: [Existing content to change - show before/after]
+  - [ ] **ADD**: [New content to include - provide actual examples]
+- **Success Criteria**: [How to verify fix works]
+- **Effort Estimate**: [Time/complexity]
 
-### 3. Structural Reorganization
-If the documentation needs restructuring:
-- **Current Structure**: [How it's organized now]
-- **Proposed Structure**: [Better organization]
-- **Migration Plan**: [How to reorganize existing content]
+### 2. Content Enhancement Plan
+For each existing section that needs improvement:
 
-### 4. New Sections to Add
-For missing content areas:
-- **Section Title**: [Proposed heading]
-- **Purpose**: [What problem this solves]
-- **Content Outline**: [Key points to cover]
-- **Code Examples**: [Specific examples needed]
+#### Section: "[Exact Heading from Documentation]"
+**Location**: [Where this appears in current doc]
+**Current Content Assessment**: [Quote key parts that need work]
 
-### 5. Code Example Improvements
-For better code samples:
-- **Language/Framework**: {{ sdk_language }}{% if target_framework %}/{{ target_framework }}{% endif %}
-- **Complete Examples**: [Full, runnable code snippets]
-- **Error Handling**: [How to handle common failures]
-- **Best Practices**: [Recommended implementation patterns]
+**Enhancement Strategy**:
+- **Keep**: [What's working well - be specific]
+- **Fix**: [What's broken - show exact changes needed]
+  - Before: `[current problematic content]`
+  - After: `[improved version]`
+- **Add**: [What's missing - provide complete new content]
+- **Remove**: [What should be deleted entirely]
 
-### 6. Developer Experience Enhancements
-- **Quick Wins**: [Easy improvements with high impact]
-- **Navigation Aids**: [Table of contents, cross-references]
-- **Visual Elements**: [Diagrams, screenshots, flowcharts]
-- **Interactive Elements**: [Try-it-yourself sections]
+### 3. Missing Content Plan
+For completely absent sections:
 
-### 7. Implementation Roadmap
-Prioritize improvements by impact and effort:
+#### New Section: "[Proposed Heading]"
+- **Placement**: [Where in document structure]
+- **Purpose**: [Developer problem this solves]
+- **Complete Content Draft**: [Full section content ready to use]
+- **Integration Notes**: [How it connects to existing content]
 
-**Phase 1 (Quick Wins - 1-2 weeks)**
-- [List immediate fixes]
+### 4. Structural Improvements
+**Current Document Flow**: [List current section order]
+**Problems with Current Structure**: [Why current organization fails]
+**Recommended New Structure**: 
+1. [Section 1 - with rationale]
+2. [Section 2 - with rationale] 
+3. [etc.]
 
-**Phase 2 (Major Content - 2-4 weeks)**
-- [List significant additions]
+**Migration Instructions**:
+- Move [specific content] from [current location] to [new location]
+- Combine [these sections] into [new unified section]
+- Split [this section] into [these separate sections]
 
-**Phase 3 (Advanced Features - 1-2 months)**
-- [List comprehensive enhancements]
+### 5. Code Quality Improvements
+**Current Code Issues**: [List all problematic code examples with locations]
 
-### 8. Success Metrics
-How to measure improvement effectiveness:
-- **Developer Feedback**: [What to ask users]
-- **Usage Analytics**: [What to track]
-- **Completion Rates**: [How to measure success]
+For each code problem:
+#### Code Issue #[N]: [Description]
+- **Current Code**: [Show existing problematic code]
+- **Problems**: [What's wrong - missing imports, incomplete, etc.]
+- **Fixed Code**: [Complete, working replacement]
+- **Context Needed**: [Additional explanation/comments to add]
 
-### 9. Maintenance Plan
-- **Regular Reviews**: [How often to update]
-- **Feedback Loops**: [How to collect ongoing input]
-- **Version Updates**: [How to handle SDK changes]
+### 6. Implementation Roadmap
 
-Provide specific, actionable recommendations that the documentation team can implement immediately. Include actual content suggestions, not just abstract advice.
+#### Phase 1: Critical Fixes (Week 1)
+**Goal**: Remove blockers preventing developer success
+- [ ] Fix Issue #1: [specific action]
+- [ ] Fix Issue #2: [specific action] 
+- [ ] Add missing [specific content]
+- **Success Metric**: Developers can complete basic setup
+
+#### Phase 2: Content Enhancement (Weeks 2-3)
+**Goal**: Improve existing content quality
+- [ ] Enhance "[Section Name]" with [specific improvements]
+- [ ] Add "[New Section Name]" content
+- [ ] Restructure [specific sections]
+- **Success Metric**: Reduced time-to-completion
+
+#### Phase 3: Advanced Features (Month 2)
+**Goal**: Production-ready guidance
+- [ ] Add advanced topics
+- [ ] Include troubleshooting scenarios
+- [ ] Create maintenance guidelines
+- **Success Metric**: Successful production deployments
+
+### 7. Quality Assurance Checklist
+**Before Publishing Improvements**:
+- [ ] Every code example tested and working
+- [ ] All links verified and functional
+- [ ] Screenshots updated to match current UI
+- [ ] Content reviewed for accuracy
+- [ ] User testing completed with 3+ developers
+
+### 8. Maintenance Strategy
+**Monthly Reviews**:
+- Test all code examples with latest SDK version
+- Update screenshots if UI changed
+- Review user feedback and support tickets
+
+**Quarterly Updates**:
+- Full content audit against current best practices
+- Competitive analysis vs other quickstarts
+- User journey optimization based on analytics
+
+**CRITICAL REQUIREMENTS FOR ALL RECOMMENDATIONS**:
+1. **Be Specific**: Every recommendation must include exact current content that needs changing
+2. **Provide Examples**: Include actual code, text, or content to use
+3. **Show Before/After**: Demonstrate exact changes needed
+4. **Justify Impact**: Explain why each change improves developer success
+5. **Include Ready-to-Use Content**: Provide complete sections that can be copy-pasted
+
+**FORMAT REQUIREMENT**: Structure all recommendations so a technical writer can immediately understand:
+- What to delete (quote exact current content)
+- What to modify (show before → after)
+- What to add (provide complete new content)
+- Where to place changes (specify exact locations)
 
 ## Output Instructions
 

@@ -805,6 +805,20 @@ def _get_existing_documentation_with_back(session: AnalysisSessionManager) -> Di
             return 'cancel'
     
     elif input_method == 'url':
+        # Display warning about URL extraction limitations
+        console.print(Panel.fit(
+            "[yellow]⚠️  URL Content Extraction Warning[/yellow]\n\n"
+            "• Most LLMs cannot directly browse websites\n"
+            "• Dynamic JavaScript content may not be captured\n" 
+            "• Code examples in interactive tabs/editors may be missed\n"
+            "• You may need to manually add missing code content later\n\n"
+            "[dim]The generated analysis will include placeholders for any missing content[/dim]",
+            title="🌐 URL Mode Limitations"
+        ))
+        
+        if not click.confirm("\nContinue with URL input?", default=True):
+            return 'back'
+        
         try:
             url = click.prompt(
                 '🔗 URL to existing documentation',

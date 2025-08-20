@@ -17,74 +17,125 @@ Based on the documentation analysis and gap analysis, provide specific, actionab
 
 ## Improvement Synthesis Request
 
-Generate a comprehensive improvement plan with specific recommendations:
+Generate a comprehensive improvement plan with clear, actionable recommendations:
 
-### 1. High-Priority Fixes
-Identify the top 3-5 issues that should be addressed first:
-- **Issue**: [Specific problem]
-- **Impact**: [Why this matters for developers]
-- **Solution**: [Detailed fix with examples]
-- **Effort**: [Estimated work required]
+## Improvement Framework
 
-### 2. Content Improvements
-For each section that needs work:
+### 1. Critical Issues (Fix Immediately)
+For the top 3-5 blocking issues:
 
-#### [Section Name]
-- **Current Problem**: [What's wrong now]
-- **Recommended Change**: [Specific improvement]
-- **New Content**: [Actual text/code to add or replace]
-- **Rationale**: [Why this change helps developers]
+#### Issue #[N]: [Specific Problem Title]
+- **Current State**: [What exists in documentation now - quote exact text/sections]
+- **Problem**: [Why current approach fails developers]
+- **Root Cause**: [Underlying reason for the problem]
+- **Recommended Action**: 
+  - [ ] **REMOVE**: [Specific content to delete]
+  - [ ] **MODIFY**: [Existing content to change - show before/after]
+  - [ ] **ADD**: [New content to include - provide actual examples]
+- **Success Criteria**: [How to verify fix works]
+- **Effort Estimate**: [Time/complexity]
 
-### 3. Structural Reorganization
-If the documentation needs restructuring:
-- **Current Structure**: [How it's organized now]
-- **Proposed Structure**: [Better organization]
-- **Migration Plan**: [How to reorganize existing content]
+### 2. Content Enhancement Plan
+For each existing section that needs improvement:
 
-### 4. New Sections to Add
-For missing content areas:
-- **Section Title**: [Proposed heading]
-- **Purpose**: [What problem this solves]
-- **Content Outline**: [Key points to cover]
-- **Code Examples**: [Specific examples needed]
+#### Section: "[Exact Heading from Documentation]"
+**Location**: [Where this appears in current doc]
+**Current Content Assessment**: [Quote key parts that need work]
 
-### 5. Code Example Improvements
-For better code samples:
-- **Language/Framework**: Typescript
-- **Complete Examples**: [Full, runnable code snippets]
-- **Error Handling**: [How to handle common failures]
-- **Best Practices**: [Recommended implementation patterns]
+**Enhancement Strategy**:
+- **Keep**: [What's working well - be specific]
+- **Fix**: [What's broken - show exact changes needed]
+  - Before: `[current problematic content]`
+  - After: `[improved version]`
+- **Add**: [What's missing - provide complete new content]
+- **Remove**: [What should be deleted entirely]
 
-### 6. Developer Experience Enhancements
-- **Quick Wins**: [Easy improvements with high impact]
-- **Navigation Aids**: [Table of contents, cross-references]
-- **Visual Elements**: [Diagrams, screenshots, flowcharts]
-- **Interactive Elements**: [Try-it-yourself sections]
+### 3. Missing Content Plan
+For completely absent sections:
 
-### 7. Implementation Roadmap
-Prioritize improvements by impact and effort:
+#### New Section: "[Proposed Heading]"
+- **Placement**: [Where in document structure]
+- **Purpose**: [Developer problem this solves]
+- **Complete Content Draft**: [Full section content ready to use]
+- **Integration Notes**: [How it connects to existing content]
 
-**Phase 1 (Quick Wins - 1-2 weeks)**
-- [List immediate fixes]
+### 4. Structural Improvements
+**Current Document Flow**: [List current section order]
+**Problems with Current Structure**: [Why current organization fails]
+**Recommended New Structure**: 
+1. [Section 1 - with rationale]
+2. [Section 2 - with rationale] 
+3. [etc.]
 
-**Phase 2 (Major Content - 2-4 weeks)**
-- [List significant additions]
+**Migration Instructions**:
+- Move [specific content] from [current location] to [new location]
+- Combine [these sections] into [new unified section]
+- Split [this section] into [these separate sections]
 
-**Phase 3 (Advanced Features - 1-2 months)**
-- [List comprehensive enhancements]
+### 5. Code Quality Improvements
+**Current Code Issues**: [List all problematic code examples with locations]
 
-### 8. Success Metrics
-How to measure improvement effectiveness:
-- **Developer Feedback**: [What to ask users]
-- **Usage Analytics**: [What to track]
-- **Completion Rates**: [How to measure success]
+For each code problem:
+#### Code Issue #[N]: [Description]
+- **Current Code**: [Show existing problematic code]
+- **Problems**: [What's wrong - missing imports, incomplete, etc.]
+- **Fixed Code**: [Complete, working replacement]
+- **Context Needed**: [Additional explanation/comments to add]
 
-### 9. Maintenance Plan
-- **Regular Reviews**: [How often to update]
-- **Feedback Loops**: [How to collect ongoing input]
-- **Version Updates**: [How to handle SDK changes]
+### 6. Implementation Roadmap
 
-Provide specific, actionable recommendations that the documentation team can implement immediately. Include actual content suggestions, not just abstract advice.
+#### Phase 1: Critical Fixes (Week 1)
+**Goal**: Remove blockers preventing developer success
+- [ ] Fix Issue #1: [specific action]
+- [ ] Fix Issue #2: [specific action] 
+- [ ] Add missing [specific content]
+- **Success Metric**: Developers can complete basic setup
+
+#### Phase 2: Content Enhancement (Weeks 2-3)
+**Goal**: Improve existing content quality
+- [ ] Enhance "[Section Name]" with [specific improvements]
+- [ ] Add "[New Section Name]" content
+- [ ] Restructure [specific sections]
+- **Success Metric**: Reduced time-to-completion
+
+#### Phase 3: Advanced Features (Month 2)
+**Goal**: Production-ready guidance
+- [ ] Add advanced topics
+- [ ] Include troubleshooting scenarios
+- [ ] Create maintenance guidelines
+- **Success Metric**: Successful production deployments
+
+### 7. Quality Assurance Checklist
+**Before Publishing Improvements**:
+- [ ] Every code example tested and working
+- [ ] All links verified and functional
+- [ ] Screenshots updated to match current UI
+- [ ] Content reviewed for accuracy
+- [ ] User testing completed with 3+ developers
+
+### 8. Maintenance Strategy
+**Monthly Reviews**:
+- Test all code examples with latest SDK version
+- Update screenshots if UI changed
+- Review user feedback and support tickets
+
+**Quarterly Updates**:
+- Full content audit against current best practices
+- Competitive analysis vs other quickstarts
+- User journey optimization based on analytics
+
+**CRITICAL REQUIREMENTS FOR ALL RECOMMENDATIONS**:
+1. **Be Specific**: Every recommendation must include exact current content that needs changing
+2. **Provide Examples**: Include actual code, text, or content to use
+3. **Show Before/After**: Demonstrate exact changes needed
+4. **Justify Impact**: Explain why each change improves developer success
+5. **Include Ready-to-Use Content**: Provide complete sections that can be copy-pasted
+
+**FORMAT REQUIREMENT**: Structure all recommendations so a technical writer can immediately understand:
+- What to delete (quote exact current content)
+- What to modify (show before → after)
+- What to add (provide complete new content)
+- Where to place changes (specify exact locations)
 
 ## Output Instructions
 
