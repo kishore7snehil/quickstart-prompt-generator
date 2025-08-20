@@ -172,7 +172,6 @@ export default async function Home() {
 
 **NEW CONTENT TO ADD** (Insert after main heading):
 
-```markdown
 ## Prerequisites
 
 Before starting this tutorial, ensure you have:
@@ -201,7 +200,6 @@ git --version     # Should show any recent version
 ```
 
 > **Note**: This tutorial uses Next.js 14+ with the App Router. If you're using Pages Router or an older version, some code examples may need adjustment.
-```
 
 - **Success Criteria**: Zero environment-related support tickets for basic setup
 - **Effort Estimate**: 1 day
@@ -216,7 +214,6 @@ git --version     # Should show any recent version
 
 **NEW CONTENT TO ADD** (Insert after Prerequisites):
 
-```markdown
 ## Project Setup
 
 ### Option 1: Start from Scratch (Recommended)
@@ -269,7 +266,6 @@ npm run dev
 Visit [http://localhost:3000](http://localhost:3000) to see your app running.
 
 > ✅ **Checkpoint**: You should see the default Next.js welcome page before proceeding.
-```
 
 - **Success Criteria**: Developers have working Next.js project before Auth0 integration
 - **Effort Estimate**: 1 day
@@ -291,7 +287,6 @@ Visit [http://localhost:3000](http://localhost:3000) to see your app running.
 
 **ENHANCED CONTENT**:
 
-```markdown
 ## Step 1: Configure Auth0
 
 ### Understanding Auth0 Applications
@@ -350,7 +345,6 @@ After saving your settings:
 
 **Problem**: "Unauthorized" error on logout  
 **Solution**: Verify logout URL is set to `http://localhost:3000`
-```
 
 ### Section: "Install the Auth0 Next.js v4 SDK"
 **Location**: Step 2 in current documentation  
@@ -365,7 +359,6 @@ After saving your settings:
 
 **ENHANCED CONTENT**:
 
-```markdown
 ## Step 2: Install the Auth0 Next.js SDK
 
 ### Install the SDK Package
@@ -405,7 +398,6 @@ npm install react@^18.0.0 react-dom@^18.0.0 next@^13.0.0
 **Solution**: The package includes TypeScript definitions by default. Restart your TypeScript server in VS Code: `Cmd+Shift+P` → "TypeScript: Restart TS Server"
 
 > ✅ **Checkpoint**: Package installed successfully and no error messages appear.
-```
 
 ---
 
@@ -416,7 +408,6 @@ npm install react@^18.0.0 react-dom@^18.0.0 next@^13.0.0
 - **Purpose**: Provides immediate value demonstration and confidence building
 - **Complete Content Draft**:
 
-```markdown
 ## Quick Start (5 Minutes)
 
 Get authentication working in under 5 minutes with this minimal setup. You can customize and enhance later.
@@ -465,14 +456,12 @@ You should see:
 - Continue with [Detailed Implementation](#detailed-implementation) to understand the code
 - Customize the [User Interface](#customizing-the-ui) 
 - Add [Error Handling](#error-handling) for production use
-```
 
 ### New Section: "Troubleshooting Guide"
 - **Placement**: After main implementation steps, before "Next Steps"
 - **Purpose**: Provides resolution for common issues and debugging guidance
 - **Complete Content Draft**:
 
-```markdown
 ## Troubleshooting Guide
 
 ### Common Setup Issues
@@ -572,14 +561,12 @@ When asking for help, include:
 - Error messages (with sensitive data removed)
 - Relevant code snippets
 - Steps to reproduce the issue
-```
 
 ### New Section: "Production Deployment"
 - **Placement**: After troubleshooting, before "Next Steps"
 - **Purpose**: Guides developers through production deployment considerations
 - **Complete Content Draft**:
 
-```markdown
 ## Production Deployment
 
 ### Environment Configuration
@@ -803,7 +790,6 @@ Before going live:
 - [ ] User acceptance testing completed
 - [ ] Backup and recovery procedures documented
 - [ ] Security review completed
-```
 
 ---
 
