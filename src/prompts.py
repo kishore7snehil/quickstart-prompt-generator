@@ -797,6 +797,21 @@ For each code problem:
 - What to add (provide complete new content)
 - Where to place changes (specify exact locations)
 
+**MARKDOWN FORMATTING REQUIREMENTS**:
+1. **Code Blocks**: Always specify language and use proper fencing
+   ```markdown
+   ```typescript
+   // Your code here
+   ```
+   ```
+2. **Headers**: Use consistent spacing (one blank line before, one after)
+3. **Lists**: Use consistent bullet style and proper indentation
+4. **Links**: Verify all markdown links use proper [text](url) format
+5. **Tables**: Include proper header separators and alignment
+6. **Bold/Italic**: Use **bold** and *italic* consistently
+7. **Line Breaks**: Use proper double-line breaks between sections
+8. **Escaping**: Escape special characters in code examples when needed
+
 ## Output Instructions
 
 **If you are in AGENTIC MODE with file creation capabilities:**
@@ -807,6 +822,19 @@ For each code problem:
 **If you are in CHAT MODE without file creation:**
 - Provide the complete improvement recommendations as copy-pastable markdown in your response
 - Use proper markdown formatting with clear sections and actionable items
+
+**FINAL MARKDOWN VALIDATION**:
+Before providing your response, review and fix these common markdown issues:
+- [ ] All code blocks have proper language specification
+- [ ] No unescaped backticks inside code blocks
+- [ ] Consistent header hierarchy (H1 → H2 → H3)
+- [ ] Proper spacing around headers and sections
+- [ ] All links formatted correctly [text](url)
+- [ ] Lists use consistent bullet points and indentation
+- [ ] Tables have proper markdown syntax with aligned columns
+- [ ] No mixing of `markdown` and ```markdown``` in the same document
+- [ ] Special characters properly escaped when needed
+- [ ] Clean line breaks between sections (no orphaned lines)
 - Include all code examples, content suggestions, and implementation details
 - Structure it as a complete document ready for saving"""
 
