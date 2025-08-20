@@ -40,6 +40,96 @@ The `generated_prompts/results/` folder contains actual LLM outputs from using t
 - [`auth0-spa-js-style-extraction-results.md`](../generated_prompts/results/auth0-spa-js-style-extraction-results.md) - Style guide
 - [`auth0-spa-js-svelte-quickstart.md`](../generated_prompts/results/auth0-spa-js-svelte-quickstart.md) - Final Svelte quickstart
 
+## Analysis Mode Examples
+
+The Analysis Mode provides detailed evaluation of existing quickstart documentation using a structured 3-stage analysis process.
+
+### Complete Analysis Example: Auth0 Next.js Quickstart
+
+This example shows how to analyze an existing quickstart document:
+
+```bash
+$ quickstart-prompt-generator analyze
+
+📋 Analysis Mode Configuration
+
+🔗 Document URL or file path to analyze: https://auth0.com/docs/quickstart/webapp/nextjs/interactive
+
+🔧 What SDK/library does this document cover?: nextjs-auth0
+
+📝 What is the SDK language?: TypeScript
+
+🎯 Select focus areas for analysis (press Enter for default):
+  1. Writing Style & Tone
+  2. Content Structure & Flow
+  3. Code Example Quality
+  4. Developer Guidance & UX
+  5. Visual & Formatting Elements
+  6. Prerequisites & Environment Setup
+  7. Configuration & External Service Setup
+  8. Technology Currency & Practices
+  9. Error Prevention & Troubleshooting
+  10. Completeness & Accuracy
+  11. All of the above (default)
+
+Focus areas: [Enter] # Selects all focus areas
+
+📚 Additional reference documents (optional):
+Enter reference quickstart links or file paths (one per line):
+  Reference:  https://vercel.com/guides/getting-started-with-nextjs-typescript-stripe
+```
+
+### Generated Analysis Prompts
+
+The analysis mode creates three specialized prompts:
+
+- **Stage 1**: `nextjs-auth0-stage1-documentation-analysis.md` - Comprehensive evaluation across all focus areas
+- **Stage 2**: `nextjs-auth0-stage2-gap-analysis.md` - Identifies missing elements and improvement opportunities  
+- **Stage 3**: `nextjs-auth0-stage3-improvement-recommendations.md` - Provides specific, actionable recommendations
+
+### Focus Area Selection Examples
+
+#### Selecting Specific Focus Areas
+
+```bash
+🎯 Select focus areas for analysis:
+  1. Writing Style & Tone
+  2. Content Structure & Flow
+  3. Code Example Quality
+  4. Developer Guidance & UX
+  5. Visual & Formatting Elements
+  6. Prerequisites & Environment Setup
+  7. Configuration & External Service Setup
+  8. Technology Currency & Practices
+  9. Error Prevention & Troubleshooting
+  10. Completeness & Accuracy
+  11. All of the above
+
+Focus areas: 3,4,6 # Focus only on Code Examples, UX, and Prerequisites
+```
+
+#### Multiple Reference Documents
+
+```bash
+📚 Additional reference documents (optional):
+  Reference: https://auth0.com/docs/quickstart/webapp/react
+  Reference: https://docs.github.com/en/authentication/connecting-to-github-with-ssh
+  Reference: [Enter]
+
+References: 3 document(s) # Original + 2 additional references
+```
+
+### Analysis Results Structure
+
+When you run the generated prompts through an LLM, you'll get structured results like:
+
+```
+generated_prompts/analysis/results/
+├── nextjs-auth0-stage1-analysis-results.md     # Detailed evaluation scores
+├── nextjs-auth0-stage2-gap-analysis-results.md # Gap identification
+└── nextjs-auth0-stage3-improvement-recommendations-results.md # Action items
+```
+
 ## Advanced Features & Examples
 
 ### Standalone SDK Usage

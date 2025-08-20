@@ -16,6 +16,7 @@ Perfect for SDK teams working across multiple languages who need consistent, hig
 - **Language-Agnostic**: Works with any SDK/library in any programming language
 - **No Code Parsing**: Accepts SDK information as plain input - no introspection required
 - **Three-Stage Workflow**: Structured approach ensures comprehensive and consistent results
+- **Analysis Mode**: Evaluate existing quickstart documentation with structured improvement recommendations
 - **Standalone Mode**: Generate quickstarts for pure SDK usage without framework dependencies
 - **Multiple Style References**: Blend documentation styles from different sources or focus on specific companies
 - **Smart Session Management**: Continue existing sessions, go back during questionnaire, and handle errors gracefully
