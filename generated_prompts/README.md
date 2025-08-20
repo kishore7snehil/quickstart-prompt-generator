@@ -1,25 +1,21 @@
 # Quickstart Prompt Generator Examples
 
-This directory contains example prompts generated using the Quickstart Prompt Generator tool along with template files for storing results from LLMs (Large Language Models).
+This directory contains example prompts and results demonstrating both **Generation Mode** and **Analysis Mode** workflows.
 
 ## Directory Structure
 
 ```
 generated_prompts/
 │
-├── analysis/               # Stage 1: SDK Deep Analysis prompts
-│   └── auth0-spa-js-analysis.md
+├── generation/             # New Quickstart Generation Mode
+│   ├── analysis/          # Stage 1: SDK Deep Analysis prompts
+│   ├── style/             # Stage 2: Style Extraction prompts
+│   ├── synthesis/         # Stage 3: Synthesis & Generation prompts
+│   └── results/           # Generated quickstart documentation
 │
-├── style/                  # Stage 2: Style Extraction prompts
-│   └── auth0-spa-js-style-extraction.md
-│
-├── synthesis/              # Stage 3: Synthesis & Generation prompts
-│   └── auth0-spa-js-svelte-synthesis.md
-│
-└── results/                # Template files for storing LLM responses
-    ├── auth0-spa-js-analysis-results.md
-    ├── auth0-spa-js-style-extraction-results.md
-    └── auth0-spa-js-svelte-quickstart.md
+└── analysis/              # Existing Quickstart Analysis Mode
+    ├── prompts/           # Analysis prompt examples
+    └── results/           # Analysis reports and recommendations
 ```
 
 ## How to Use This Structure

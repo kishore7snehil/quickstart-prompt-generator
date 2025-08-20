@@ -27,10 +27,68 @@ Perfect for SDK teams working across multiple languages who need consistent, hig
 
 ### Installation
 
+#### Fresh Installation on New System
+
+1. **Prerequisites:**
 ```bash
+# Ensure Python 3.9+ is installed
+python --version  # Should show Python 3.9 or higher
+```
+
+2. **Clone and navigate to the project:**
+```bash
+git clone <repository-url>
 cd quickstart_prompt_generator
+```
+
+3. **Create and activate a virtual environment:**
+```bash
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+```
+
+4. **Configure pip for global PyPI (if needed):**
+```bash
+# Only run if you have corporate/artifactory configuration
+pip config unset global.index-url
+pip config unset global.extra-index-url
+pip config unset global.trusted-host
+pip config unset global.only-binary
+
+# Verify clean configuration (should show no output)
+pip config list
+```
+
+5. **Install dependencies:**
+```bash
+pip install -r requirements.txt
+```
+
+6. **Install the tool:**
+```bash
 pip install -e .
 ```
+
+7. **Verify installation:**
+```bash
+# Check if command is available
+quickstart-prompt-generator --help
+
+# If command not found, use alternative method:
+python -m src.cli --help
+```
+
+### Troubleshooting
+
+If you encounter installation or runtime issues, see our comprehensive [**TROUBLESHOOTING.md**](TROUBLESHOOTING.md) guide which covers:
+
+- **Network connection errors** (proxies, SSL issues)
+- **Command not found issues**
+
+
+**Quick fixes for common issues:**
+- Connection errors: `pip install setuptools wheel && pip install -e .`
+- Command not found: Use `python -m src.cli` instead of `quickstart-prompt-generator`
 
 ### Basic Usage
 
@@ -49,7 +107,23 @@ quickstart-prompt-generator generate
    - Copy Stage 2 prompt + reference docs → Get style guide  
    - Copy Stage 3 prompt + previous outputs → Get final quickstart
 
+### Alternative: Analysis Mode
+
+For analyzing existing quickstart documentation:
+
+```bash
+quickstart-prompt-generator analyze init
+```
+
+Then generate improvement recommendations:
+
+```bash
+quickstart-prompt-generator analyze generate
+```
+
 ## 📋 CLI Commands
+
+### Generation Mode (Default)
 
 | Command | Description |
 |---------|-------------|
@@ -57,6 +131,15 @@ quickstart-prompt-generator generate
 | `generate` | Generate all three LLM prompts |
 | `status` | Show current session information |
 | `reset` | Clear current session and start over |
+
+### Analysis Mode
+
+| Command | Description |
+|---------|-------------|
+| `analyze init` | Initialize a new analysis session for existing documentation |
+| `analyze generate` | Generate analysis prompts for existing documentation |
+| `analyze status` | Show current analysis session status |
+| `analyze reset` | Reset the current analysis session |
 
 ### Generate Command Options
 
@@ -69,22 +152,35 @@ Options:
   --help                                Show help message
 ```
 
-## 🔄 Three-Stage Workflow
+## 🔄 Two Workflow Modes
 
-### Stage 1: SDK Deep Analysis
+### Generation Mode: Three-Stage Workflow
+
+#### Stage 1: SDK Deep Analysis
 - **Purpose**: Analyze SDK capabilities, architecture, and developer workflow
 - **Input**: SDK name, language, and optional repository link
 - **Output**: Comprehensive technical analysis for LLM
 
-### Stage 2: Reference Style Extraction  
+#### Stage 2: Reference Style Extraction  
 - **Purpose**: Extract writing style and structure from reference documentation
 - **Input**: Links to existing quickstart documentation (supports multiple references with style blending)
 - **Output**: Style guide and formatting patterns with smart style preference handling
 
-### Stage 3: Synthesis & Generation
+#### Stage 3: Synthesis & Generation
 - **Purpose**: Combine SDK analysis with style patterns to create final quickstart
 - **Input**: Results from Stages 1 & 2
 - **Output**: Complete, framework-specific quickstart documentation
+
+### Analysis Mode: Documentation Improvement
+
+#### Purpose
+Analyze existing quickstart documentation to identify improvement opportunities and generate actionable recommendations.
+
+#### Workflow
+1. **Documentation Input**: Provide existing documentation via file, URL, or direct paste
+2. **Improvement Focus**: Select specific areas to analyze (clarity, completeness, structure, etc.)
+3. **LLM Analysis**: Generate targeted prompts for comprehensive documentation review
+4. **Recommendations**: Receive structured improvement suggestions with priorities and implementation guidance
 
 ## 💡 Example Workflows
 

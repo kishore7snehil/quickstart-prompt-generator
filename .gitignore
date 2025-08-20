@@ -38,6 +38,7 @@ venv.bak/
 
 # Session files (these are user-specific)
 .qpg_session.json
+.qpg_analysis_session.json
 
 # Demo/test output files
 demo-prompts.txt

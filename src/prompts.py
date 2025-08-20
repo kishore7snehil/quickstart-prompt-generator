@@ -10,9 +10,15 @@ class PromptGenerator:
     def __init__(self):
         """Initialize the prompt generator with templates."""
         self.templates = {
+            # Generation mode templates
             'sdk_analysis': self._get_sdk_analysis_template(),
             'style_extraction': self._get_style_extraction_template(),
-            'synthesis': self._get_synthesis_template()
+            'synthesis': self._get_synthesis_template(),
+            
+            # Analysis mode templates
+            'doc_analysis': self._get_doc_analysis_template(),
+            'improvement_gap': self._get_improvement_gap_template(),
+            'improvement_synthesis': self._get_improvement_synthesis_template()
         }
     
     def generate_sdk_analysis_prompt(self, session_data: Dict) -> str:
@@ -28,6 +34,21 @@ class PromptGenerator:
     def generate_synthesis_prompt(self, session_data: Dict) -> str:
         """Generate Stage 3: Quickstart Synthesis prompt."""
         template = Template(self.templates['synthesis'])
+        return template.render(**session_data)
+    
+    def generate_doc_analysis_prompt(self, session_data: Dict) -> str:
+        """Generate Stage 1: Documentation Analysis prompt."""
+        template = Template(self.templates['doc_analysis'])
+        return template.render(**session_data)
+    
+    def generate_improvement_gap_prompt(self, session_data: Dict) -> str:
+        """Generate Stage 2: Improvement Gap Analysis prompt."""
+        template = Template(self.templates['improvement_gap'])
+        return template.render(**session_data)
+    
+    def generate_improvement_synthesis_prompt(self, session_data: Dict) -> str:
+        """Generate Stage 3: Improvement Synthesis prompt."""
+        template = Template(self.templates['improvement_synthesis'])
         return template.render(**session_data)
     
     def _get_sdk_analysis_template(self) -> str:
@@ -369,6 +390,220 @@ Before finalizing the quickstart, ensure it meets these mandatory standards:
 
 ---
 **Final Goal**: Create quickstart documentation that {{ target_framework }} developers can follow to successfully integrate {{ sdk_name }} in under 30 minutes, following established documentation patterns for optimal developer experience."""
+    
+    def _get_doc_analysis_template(self) -> str:
+        """Template for analyzing existing documentation."""
+        return """# Existing Quickstart Documentation Analysis
+
+I need your help analyzing an existing quickstart documentation to identify its strengths, weaknesses, and areas for improvement.
+
+## Documentation to Analyze
+
+{% if existing_doc_content.startswith('URL_TO_EXTRACT:') -%}
+**IMPORTANT: First, please visit and extract the complete content from this URL (including all code examples, interactive elements, and documentation text):**
+
+{{ existing_doc_content.replace('URL_TO_EXTRACT: ', '') }}
+
+After extracting the content, analyze the documentation as requested below.
+{% else -%}
+```
+{{ existing_doc_content }}
+```
+{% endif %}
+
+## SDK Context
+- **Name**: {{ sdk_name }}
+- **Language**: {{ sdk_language }}
+{% if improvement_focus -%}
+
+## Focus Areas
+Please pay special attention to these aspects:
+{% for focus in improvement_focus -%}
+- {{ focus }}
+{% endfor %}
+{% endif %}
+
+## Evaluation Request
+
+You are an expert developer-advocate and technical writer. Evaluate this quickstart documentation using the structured rubric below, comparing it against widely accepted quickstart best practices.
+
+### Evaluation Rubric
+For each criterion below, assign a score from **0** (missing/very poor) to **5** (exemplary) and justify the score with concrete observations from the document:
+
+1. **Writing Style & Tone** – Clarity, use of active/second-person voice, personality and assumed prior knowledge. Judge against industry best practices (concise, instructive, friendly tone).
+
+2. **Content Structure & Flow** – Presence and logical sequence of introduction, prerequisites, setup, installation, implementation, testing and next steps.
+
+3. **Code Example Quality** – Correctness, completeness, use of modern syntax, in-code comments and clear context.
+
+4. **Developer Guidance & UX** – Detail and clarity of installation/setup instructions, troubleshooting guidance, and helpful next steps.
+
+5. **Visual & Formatting Elements** – Use of headings, call-outs, lists and other formatting to aid comprehension.
+
+6. **Prerequisites & Environment Setup** – Coverage of required tools, accounts and environment configuration, including version requirements.
+
+7. **Configuration & External Service Setup** – Completeness and clarity of API key, dashboard and configuration instructions.
+
+8. **Technology Currency & Practices** – Use of current commands, avoidance of deprecated patterns, alignment with modern tooling and framework conventions.
+
+9. **Error Prevention & Troubleshooting** – Anticipation of common issues, organization of troubleshooting steps and inclusion of validation checkpoints.
+
+10. **Completeness & Accuracy** – Whether the quickstart allows a developer to go from zero to a working implementation, including all required steps and accurate integration.
+
+### Output Format
+1. Produce a structured list showing each criterion, its 0–5 score and a short justification.
+2. Calculate and report the overall average score.
+3. Provide a concise summary of the quickstart's key strengths and weaknesses.
+4. List at least five specific, prioritized recommendations for improvement based on the lowest-scoring areas."""
+    
+    def _get_improvement_gap_template(self) -> str:
+        """Template for gap analysis against best practices."""
+        return """# Quickstart Documentation Gap Analysis
+
+Based on the analysis of the existing {{ sdk_name }} documentation, I need you to identify gaps compared to industry best practices and high-quality reference documentation.
+
+## Current Documentation Analysis
+[Paste the output from the previous documentation analysis here]
+
+{% if reference_links -%}
+## Reference Documentation Examples
+
+Please compare against these high-quality quickstart examples:
+{% for link in reference_links -%}
+- {{ link }}
+{% endfor %}
+
+{% if style_preference != 'none' and style_preference != 'blend' -%}
+**Primary Style Reference**: {{ style_preference }}
+{% elif style_preference == 'blend' -%}
+**Style Approach**: Blend the best elements from all reference sources
+{% endif %}
+{% endif %}
+
+## Gap Analysis Request
+
+Compare the current documentation against industry best practices and identify:
+
+### 1. Content Gaps
+- **Missing Prerequisites**: What assumptions are made about developer knowledge?
+- **Setup Gaps**: Are environment setup steps complete?
+- **Integration Gaps**: Are framework-specific examples missing?
+- **Use Case Coverage**: What common scenarios are not addressed?
+
+### 2. Structural Gaps
+- **Getting Started**: Is there a clear "Hello World" example?
+- **Progressive Complexity**: Does complexity increase appropriately?
+- **Reference Material**: Are there quick-reference sections?
+- **Troubleshooting**: Is there a debugging/FAQ section?
+
+### 3. Developer Experience Gaps
+- **Copy-Paste Ready**: Are examples immediately runnable?
+- **Error Prevention**: Are common pitfalls highlighted?
+- **Success Validation**: How do users know it's working?
+- **Next Steps**: Are advanced topics clearly linked?
+
+### 4. Modern Standards Gaps
+- **Authentication**: Are security best practices covered?
+- **Error Handling**: Is robust error handling demonstrated?
+- **Testing**: Are testing examples provided?
+- **Production Readiness**: Is deployment guidance included?
+
+### 5. Accessibility Gaps
+- **Multiple Learning Styles**: Text, code, visual aids?
+- **Skill Levels**: Beginner vs. experienced developer paths?
+- **Platform Coverage**: Cross-platform considerations?
+
+For each gap identified, please:
+- Explain why it matters for developer success
+- Rate the priority (High/Medium/Low)  
+- Suggest specific content that should be added
+
+Focus especially on gaps that would prevent developers from successfully implementing the SDK in their projects."""
+    
+    def _get_improvement_synthesis_template(self) -> str:
+        """Template for generating specific improvement recommendations."""
+        return """# Quickstart Documentation Improvement Recommendations
+
+Based on the documentation analysis and gap analysis, provide specific, actionable recommendations to improve the {{ sdk_name }} quickstart documentation.
+
+## Previous Analysis Results
+
+### Current State Analysis
+[Paste the documentation analysis results here]
+
+### Gap Analysis Results  
+[Paste the gap analysis results here]
+
+## Improvement Synthesis Request
+
+Generate a comprehensive improvement plan with specific recommendations:
+
+### 1. High-Priority Fixes
+Identify the top 3-5 issues that should be addressed first:
+- **Issue**: [Specific problem]
+- **Impact**: [Why this matters for developers]
+- **Solution**: [Detailed fix with examples]
+- **Effort**: [Estimated work required]
+
+### 2. Content Improvements
+For each section that needs work:
+
+#### [Section Name]
+- **Current Problem**: [What's wrong now]
+- **Recommended Change**: [Specific improvement]
+- **New Content**: [Actual text/code to add or replace]
+- **Rationale**: [Why this change helps developers]
+
+### 3. Structural Reorganization
+If the documentation needs restructuring:
+- **Current Structure**: [How it's organized now]
+- **Proposed Structure**: [Better organization]
+- **Migration Plan**: [How to reorganize existing content]
+
+### 4. New Sections to Add
+For missing content areas:
+- **Section Title**: [Proposed heading]
+- **Purpose**: [What problem this solves]
+- **Content Outline**: [Key points to cover]
+- **Code Examples**: [Specific examples needed]
+
+### 5. Code Example Improvements
+For better code samples:
+- **Language/Framework**: {{ sdk_language }}{% if target_framework %}/{{ target_framework }}{% endif %}
+- **Complete Examples**: [Full, runnable code snippets]
+- **Error Handling**: [How to handle common failures]
+- **Best Practices**: [Recommended implementation patterns]
+
+### 6. Developer Experience Enhancements
+- **Quick Wins**: [Easy improvements with high impact]
+- **Navigation Aids**: [Table of contents, cross-references]
+- **Visual Elements**: [Diagrams, screenshots, flowcharts]
+- **Interactive Elements**: [Try-it-yourself sections]
+
+### 7. Implementation Roadmap
+Prioritize improvements by impact and effort:
+
+**Phase 1 (Quick Wins - 1-2 weeks)**
+- [List immediate fixes]
+
+**Phase 2 (Major Content - 2-4 weeks)**
+- [List significant additions]
+
+**Phase 3 (Advanced Features - 1-2 months)**
+- [List comprehensive enhancements]
+
+### 8. Success Metrics
+How to measure improvement effectiveness:
+- **Developer Feedback**: [What to ask users]
+- **Usage Analytics**: [What to track]
+- **Completion Rates**: [How to measure success]
+
+### 9. Maintenance Plan
+- **Regular Reviews**: [How often to update]
+- **Feedback Loops**: [How to collect ongoing input]
+- **Version Updates**: [How to handle SDK changes]
+
+Provide specific, actionable recommendations that the documentation team can implement immediately. Include actual content suggestions, not just abstract advice."""
 
     def get_template_info(self) -> Dict[str, str]:
         """Get information about available templates."""
